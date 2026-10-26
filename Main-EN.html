@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stap Feelings — Feelings that build</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+@font-face{font-family:'Tusker';src:url(assets/2b372e2d4b856633653bea45dd67f3a3.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'PPR Text';src:url(assets/bb21eeeaff29aeed1a6b9adb967728b8.otf) format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'PPR Text';src:url(assets/88c17f4e8b7c83d31b1ced144aaa0bee.otf) format('opentype');font-weight:500;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url(assets/66d0fc85450e1b4ca7774dbcaae774aa.ttf) format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url(assets/ad9a236460e7fdb22bb6ebd19f6840d4.ttf) format('truetype');font-style:italic;font-weight:400;font-display:swap}
+@property --pct{syntax:'<integer>';inherits:false;initial-value:0}
+@property --n{syntax:'<integer>';inherits:false;initial-value:0}
+:root{--navy:#0B1C2D;--deep:#07111F;--azul:#0A62B4;--azul2:#1E9BE0;--claro:#9EC1D9;--off:#EEE9E1;--areia:#D9CBB6;--cinza:#DCD6CC}
+body{margin:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--azul2);outline-offset:3px}
+p,h1,h2,h3,figure{margin:0;font-weight:400}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.tk{font-family:'Tusker','Arial Narrow',sans-serif;text-transform:uppercase;line-height:.92;letter-spacing:.004em;font-weight:400;font-style:normal}
+.se{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.022em;line-height:.95}
+.it{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.03em}
+.tx{font-family:'PPR Text','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.55}
+.sm{font-family:'PPR Text','Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:1.45;font-weight:500}
+.pad{padding-left:clamp(18px,3.4vw,52px);padding-right:clamp(18px,3.4vw,52px)}
+.azul{background:#0A62B4 url(assets/1a2ed8d18dd8921cd462cb9b5b6df8bb.jpg) center/cover}
+.glow{background:#0B1C2D url(assets/037c26d6381221617466c1810c60f738.jpg) 70% 40%/cover}
+.g-render{background:#0B1C2D url(assets/d236c4493a7f7d9191745e4a69695c86.jpg) center/cover}
+.g-ideias{background:#141B48 url(assets/911ee716e1fa5988354db839f2c85204.jpg) center/cover}
+.g-exp{background:#0D3550 url(assets/6423347226a6c70550aad660f78ce118.jpg) center/cover}
+.g-casa{background:#2A3444 url(assets/ce24ff91b8c239900a9c1336327a1720.jpg) center/cover}
+.gtl{background:linear-gradient(100deg,#EEE9E1 0%,#BFD9EC 35%,#5FB2EA 70%,#1E9BE0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.18em 0}
+.gt{background:linear-gradient(100deg,#0B1C2D 0%,#123E7A 38%,#1E7FD0 72%,#9EC1D9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.18em 0}
+.img{display:block;width:100%;height:100%;object-fit:cover}
+.pill{display:inline-flex;align-items:center;gap:10px;border-radius:40px;padding:12px 20px}
+.plus{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;flex:none;font-size:20px;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+.rail::-webkit-scrollbar{display:none}
+.rail>*{scroll-snap-align:start;flex:none}
+.case{width:min(78vw,420px)}
+.case .ph{border-radius:10px;overflow:hidden;aspect-ratio:4/5}
+.case img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.case:hover img{transform:scale(1.04)}
+.seal{animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rise{from{transform:translateY(110%)}to{transform:none}}
+@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes grow{from{clip-path:inset(18% 22% 18% 22% round 14px)}to{clip-path:inset(0 0 0 0 round 0)}}
+@keyframes fill{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes count{from{--pct:0}to{--pct:100}}
+@keyframes out{0%,85%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes marq{to{transform:translateX(-50%)}}
+.loader{position:fixed;inset:0;z-index:60;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;animation:out 2.6s ease forwards;pointer-events:none}
+.loader .f{animation:fill 1.9s cubic-bezier(.6,0,.3,1) forwards}
+.pct{--pct:0;animation:count 1.9s cubic-bezier(.6,0,.3,1) forwards;counter-reset:p var(--pct)}
+.pct::after{content:counter(p) '%'}
+.line{display:block;overflow:hidden;padding-top:.3em;margin-top:-.3em;padding-bottom:.14em;margin-bottom:-.14em}
+.line>span{display:block;animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both}
+.fu{animation:fadeup 1s cubic-bezier(.2,.8,.2,1) both}
+.menu{position:fixed;left:0;right:0;top:0;height:100vh;max-height:920px;z-index:50;color:var(--off);flex-direction:column;justify-content:space-between;box-sizing:border-box}
+.menu .line>span{animation-duration:.8s}
+.wipe{animation:wipe .9s cubic-bezier(.7,0,.2,1) both}
+.seg{display:inline-flex;gap:4px;border-radius:40px;padding:4px}
+.seg button{padding:10px 20px;border-radius:40px;transition:background .3s,color .3s}
+.acc{border-top:1px solid currentColor}
+.acc:last-child{border-bottom:1px solid currentColor}
+.acc>button{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px;width:100%;text-align:left;padding:clamp(18px,2.2vw,30px) 0}
+.acc .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1)}
+.acc .body>div{overflow:hidden}
+.marq{display:flex;width:max-content;animation:marq 38s linear infinite}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s !important;animation-delay:0s !important}}
+@media (max-width:760px){.hide-s{display:none !important}}
+
+.caps{font-family:'PPR Text','Helvetica Neue',Arial,sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;line-height:1.75}
+.md{font-family:'PPR Text','Helvetica Neue',Arial,sans-serif;font-weight:500;letter-spacing:-.01em}
+.ring{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border:1px solid currentColor;border-radius:50%;flex:none;font-size:18px;transition:background .3s,color .3s}
+a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-color:var(--off)}
+.vl{border-left:1px solid currentColor;padding-left:14px}
+/* hero */
+.hero{position:relative;min-height:min(100vh,940px);color:var(--off);overflow:hidden;display:grid;grid-template-rows:auto 1fr auto}
+.hero video.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,17,31,.92) 0%,rgba(7,17,31,.6) 42%,rgba(7,17,31,.15) 75%,rgba(7,17,31,.35) 100%),linear-gradient(0deg,rgba(7,17,31,.6),rgba(7,17,31,0) 40%)}
+.hero .mani{position:absolute;inset:0;z-index:5;background:#07111F}
+.hero .mani video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#07111F}
+.hero .hit{position:absolute;inset:0;z-index:1;cursor:pointer;background:none;border:0}
+.hero .hit .cue{position:absolute;right:clamp(18px,3.4vw,52px);top:50%;transform:translateY(-50%);opacity:0;transition:opacity .4s}
+.hero .hit:hover .cue,.hero .hit:focus-visible .cue{opacity:1}
+.hero .lay{position:relative;z-index:2;pointer-events:none}
+.hero .lay a,.hero .lay button{pointer-events:auto}
+/* rails */
+.railwrap{position:relative}
+.track{position:relative;height:2px;background:rgba(11,28,45,.18);border-radius:2px}
+.track .thumb{position:absolute;top:-1px;height:4px;border-radius:4px;background:var(--azul);transition:left .08s linear}
+.track input{position:absolute;left:0;right:0;top:-14px;height:30px;width:100%;margin:0;opacity:0;cursor:grab}
+.dark .track{background:rgba(238,233,225,.2)}.dark .track .thumb{background:var(--off)}
+.case{width:min(76vw,400px)}
+.case .ph{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/5;background:#0B1C2D}
+.case .ph video,.case .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.case .ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;color:#fff;background:linear-gradient(160deg,rgba(10,98,180,.82),rgba(11,28,45,.9));opacity:0;transition:opacity .45s}
+.case .ov img{position:static;width:auto;height:auto;max-width:58%;max-height:70px;filter:brightness(0) invert(1);transform:translateY(10px);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.case:hover .ov,.case:focus-visible .ov{opacity:1}
+.case:hover .ov img{transform:none}
+.case:hover .ph>video,.case:hover .ph>img{transform:scale(1.05)}
+.person{width:min(66vw,300px)}
+.pc .pf{position:relative;aspect-ratio:3/4;overflow:hidden;background:#DCD6CC}
+.pc .pf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1)}
+.pc:hover .pf img{filter:none;transform:scale(1.03)}
+.pc .bio{position:absolute;left:0;right:0;bottom:0;padding:20px;color:#EEE9E1;background:linear-gradient(0deg,rgba(11,28,45,.95),rgba(11,28,45,.75) 70%,rgba(11,28,45,0));transform:translateY(101%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.pc:hover .bio,.pc:focus-within .bio{transform:none}
+.pc .noph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#0B1C2D}
+.pc .noph .se{font-size:120px;font-style:italic;line-height:1}
+/* pillars */
+.pils{display:flex;gap:12px}
+.pil{position:relative;flex:1 1 0;min-height:min(84vh,760px);border-radius:12px;overflow:hidden;color:var(--off);transition:flex-grow .8s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(22px,2.6vw,40px);box-sizing:border-box}
+.pil:hover{flex-grow:1.6}
+.pil .ic{position:absolute;right:clamp(22px,2.6vw,40px);top:clamp(70px,7vw,110px);width:clamp(80px,9vw,140px);height:auto;opacity:.9;transform-origin:top right;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.pil:hover .ic{transform:scale(1.12)}
+.pil>svg.ic{position:absolute !important}
+.pil{min-height:min(70vh,620px) !important}
+.pil video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.pil .sh{position:absolute;inset:0;z-index:0;background:linear-gradient(0deg,rgba(7,17,31,.92) 0%,rgba(7,17,31,.35) 55%,rgba(7,17,31,.55) 100%)}
+.pil>*:not(video):not(.sh){position:relative;z-index:1}
+.pil .lg{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center}
+.pil .lg img{height:22px;width:auto;filter:brightness(0) invert(1);opacity:.85}
+@media (max-width:760px){.pils{flex-direction:column}.pil{min-height:540px}}
+/* index */
+.idx a{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:end;gap:16px;border-bottom:1px solid rgba(11,28,45,.25);padding:6px 0 10px;transition:color .3s}
+.idx a:hover{color:var(--azul)}
+.idx .nm{font-family:'Tusker','Arial Narrow',sans-serif;text-transform:uppercase;font-size:clamp(46px,7.4vw,118px);line-height:.92;padding-top:.06em}
+.idx .ev{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(22px,2.4vw,36px);letter-spacing:-.02em;text-align:right}
+.idxbox{position:absolute;z-index:3;left:48%;width:clamp(180px,22vw,320px);aspect-ratio:4/3;border-radius:6px;overflow:hidden;pointer-events:none;transition:top .45s cubic-bezier(.2,.8,.2,1),opacity .3s;box-shadow:0 20px 50px rgba(11,28,45,.25)}
+.idxbox img{display:block;width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.idxbox{display:none}.idx a{grid-template-columns:28px minmax(0,1fr)}.idx .ev{grid-column:2;text-align:left;margin-top:-4px}}
+.logos{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.logos a{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:15% 17%;box-sizing:border-box;border-right:1px solid rgba(11,28,45,.14);border-bottom:1px solid rgba(11,28,45,.14);transition:background .3s}
+.logos a:hover{background:#fff}
+.logos img{max-width:100%;max-height:100%;object-fit:contain}
+@media (max-width:900px){.logos{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:520px){.logos{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* render */
+.rr{position:relative;aspect-ratio:16/10;overflow:hidden;background:#111;border:1px solid rgba(238,233,225,.25)}
+.rr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rr input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+/* banner */
+.ban{position:relative;height:min(86vh,780px);min-height:520px;overflow:hidden;background:var(--deep);color:var(--off)}
+.slide{position:absolute;inset:0;transition:opacity 1s ease}
+.slide .blur{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(28px) brightness(.55)}
+.slide .full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide .vert{position:absolute;right:clamp(18px,8vw,140px);top:50%;transform:translateY(-50%);height:82%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.slide .sh{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,17,31,.85) 0%,rgba(7,17,31,.2) 60%,rgba(7,17,31,0) 100%)}
+.bars{display:flex;gap:8px}
+.bars button{flex:1;height:30px;display:flex;align-items:center;padding:0}
+.bars button span{display:block;width:100%;height:2px;background:rgba(238,233,225,.3);position:relative;overflow:hidden}
+.bars button span i{position:absolute;inset:0;background:var(--off);transform-origin:left;transform:scaleX(0)}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (max-width:760px){.slide .vert{height:56%;right:50%;transform:translate(50%,-62%)}}
+/* casa */
+.casa-t{font-family:'Instrument Serif',Georgia,serif;line-height:.86;font-size:clamp(72px,13vw,206px);letter-spacing:-.035em}
+.casa-t i{font-style:italic}
+.casa-img{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-36%,-48%);width:clamp(150px,19vw,290px);aspect-ratio:3/4;overflow:hidden}
+.casa-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s}
+/* insta */
+.ig{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.ig a{position:relative;aspect-ratio:1;overflow:hidden;display:block}
+.ig img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.ig a:hover img{transform:scale(1.06)}
+.ig a span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,98,180,.7);color:#fff;opacity:0;transition:opacity .3s}
+.ig a:hover span{opacity:1}
+@media (max-width:760px){.herogrid{grid-template-columns:1fr !important}.span2{grid-column:auto !important}.accb{grid-template-columns:1fr !important}.acc>button>span{grid-template-columns:30px minmax(0,1fr) !important}.casa-img{width:34vw;transform:translate(-50%,-50%)}.casa-t{font-size:22vw}}
+.span2{grid-column:span 2}
+.casa3{position:relative;height:clamp(560px,62vw,900px);margin-top:clamp(40px,5vw,70px)}
+.c3img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(260px,34vw,520px);aspect-ratio:3/4;z-index:1}
+.c3img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s}
+.c3img .selo-tab{position:absolute;left:-1px;bottom:-1px;background:var(--navy);padding:14px 16px 0 0;z-index:2}
+.c3img .selo-tab img{position:static;display:block;width:clamp(58px,5.4vw,84px);height:auto}
+.c3{position:absolute;z-index:3;line-height:.82;margin:0;white-space:nowrap;mix-blend-mode:difference;color:#EEE9E1}
+.c3a{left:9%;top:4%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.04em}
+.c3b{right:7%;top:28%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.04em}
+.c3c{left:0;top:50%;font-size:clamp(90px,15vw,250px);letter-spacing:.01em;color:#EEE9E1}
+.c3d{right:4%;bottom:2%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.03em}
+.c3d .tk{font-size:1.18em}
+@media (max-width:760px){.casa3{height:auto;display:flex;flex-direction:column;gap:6px}.c3,.c3img{position:relative !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;transform:none !important}.c3img{width:72%;margin:16px auto}.c3b,.c3d{text-align:right}}
+.mani3{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:stretch;position:relative}
+.m3txt{position:relative;z-index:2;padding-right:0 !important;display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding-bottom:10px}
+.m3h{font-size:clamp(64px,9.4vw,160px);line-height:.86;letter-spacing:-.035em;margin-top:clamp(24px,3vw,44px)}
+.m3r{display:block;text-align:right;margin-right:-1.25em;position:relative;z-index:3}
+.m3img{margin:0;min-height:min(84vh,820px);position:relative;z-index:1}
+.m3img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+@media (max-width:860px){.mani3{grid-template-columns:1fr}.m3r{margin-right:0}.m3img{min-height:0;aspect-ratio:4/5;margin-left:18%}}
+.casa2{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:clamp(20px,2.4vw,40px);align-items:center}
+.casa2 .casa-t{font-size:clamp(56px,8vw,136px) !important}
+.c-a{grid-column:1;grid-row:1;text-align:right;align-self:start}
+.c-b{grid-column:3;grid-row:1;align-self:start}
+.c-c{grid-column:1;grid-row:2;text-align:right;align-self:end}
+.c-d{grid-column:3;grid-row:2;align-self:end}
+.c-img{grid-column:2;grid-row:1/3;position:relative;width:clamp(260px,30vw,470px)}
+.casa-img2{position:relative;aspect-ratio:3/4;overflow:hidden}
+.casa-img2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s}
+.selo-tab{position:absolute;left:-1px;bottom:-1px;background:var(--navy);padding:14px 16px 0 0}
+.selo-tab img{display:block;width:clamp(58px,5.4vw,84px);height:auto}
+@media (max-width:760px){.casa2{grid-template-columns:1fr}.casa2>*{grid-column:1 !important;grid-row:auto !important;text-align:left !important}.c-img{width:78%;margin:20px 0}}
+.mani2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center;gap:clamp(30px,4vw,70px)}
+.m2img{margin:0;height:min(88vh,860px);overflow:hidden}
+.m2img img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+.m2txt{padding-left:0 !important}
+@media (max-width:860px){.mani2{grid-template-columns:1fr}.m2img{height:auto;aspect-ratio:4/5;width:86%}.m2txt{padding-left:clamp(16px,3vw,44px) !important}}
+.nums6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(40px,4vw,64px) clamp(20px,2.4vw,40px)}
+@media (max-width:760px){.nums6{grid-template-columns:1fr 1fr;gap:34px 16px}.nums6 .tk{font-size:17vw !important;margin:-.04em 0 -.12em !important}.nums6 .tk span{font-size:.5em !important}.nums6 .se{font-size:20px !important;line-height:1.1}.nums6 .caps{font-size:9.5px}}
+.mfig{position:absolute;right:0;top:2%;width:38%;margin:0;z-index:0}
+.mfig img{display:block;width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:52% 40%}
+.ofa-wrap h2{position:relative;z-index:1}
+@media (max-width:760px){.mfig{position:relative;width:78%;margin:30px 0 0 auto}}
+@media (max-width:760px){.ofa1{padding-left:1em !important}.ofa2{padding-left:.6em !important}}
+@media (max-width:760px){.ig{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.rail{scroll-padding-inline:clamp(16px,3vw,44px)}
+.igc{position:relative;display:block;width:min(62vw,300px);aspect-ratio:1;overflow:hidden}
+.igc img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.igc:hover img{transform:scale(1.06)}
+.igc span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,98,180,.7);color:#fff;opacity:0;transition:opacity .3s}
+.igc:hover span{opacity:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{border:1px solid currentColor;border-radius:40px;padding:7px 14px}
+@keyframes prog2{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+
+.rr2{background:#EEE9E1;color:#07111F;padding-top:clamp(100px,11vw,170px)}
+.rr2 .blue{color:#1F4FA8}
+.rr2-top{flex-wrap:wrap;display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid rgba(7,17,31,.22);padding-top:18px}
+.rr2-hero{position:relative;margin-top:clamp(30px,3vw,48px);overflow:hidden;background:#F4F1EA;min-height:min(88vh,820px)}
+.rr2-col{position:relative;z-index:1;width:50%;min-height:inherit;display:flex;flex-direction:column;justify-content:space-between}
+.rr2-l{padding-top:clamp(40px,5vw,80px);padding-bottom:clamp(24px,3vw,40px)}
+.rr2-sig{font-size:clamp(60px,7.4vw,132px);line-height:.9;letter-spacing:-.025em;margin:0}
+.rr2-sig .ao{display:flex;align-items:center;gap:.3em;font-size:.5em;height:1.7em;margin:.08em 0 .02em .06em}
+.rr2-sig .bar{display:inline-block;width:.42em;height:1.55em;background:linear-gradient(#1F4FA8,#1F4FA8) center/2px 100% no-repeat,linear-gradient(#1F4FA8,#1F4FA8) top/100% 2px no-repeat,linear-gradient(#1F4FA8,#1F4FA8) bottom/100% 2px no-repeat}
+.rr2-sig .real{display:block}
+.rr2-claim{margin-top:clamp(18px,2vw,28px);letter-spacing:.32em;line-height:2}
+.rr2-render{margin:0;width:118%;padding-bottom:44px}
+.rr2-render img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+.rr2-real{position:absolute;top:0;bottom:0;left:34%;right:0;margin:0;z-index:2;clip-path:polygon(46% 0,100% 0,100% 100%,0 100%)}
+.rr2-real img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;display:block}
+.rr2-tag{position:absolute;bottom:18px;z-index:4;display:flex;align-items:center;gap:14px}
+.rr2-tag.l{left:clamp(16px,3vw,44px)}.rr2-tag.r{right:clamp(16px,3vw,44px);color:#EEE9E1}
+.rr2-tag .ln{width:56px;border-top:1px solid currentColor;opacity:.6}
+@media (max-width:760px){
+.rr2-hero{min-height:0}
+.rr2-col{width:auto}
+.rr2-render{width:100%;padding-bottom:0}
+.rr2-real{position:relative;left:0;height:300px;clip-path:polygon(22% 0,100% 0,100% 100%,0 100%);margin-top:-40px}
+.rr2-tag{display:none}
+}
+
+.hhdr{position:sticky;top:0;z-index:45;background:rgba(11,28,45,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;gap:24px;height:88px;margin-bottom:-88px;color:var(--off);transition:background .45s,box-shadow .45s,height .45s}
+.hhdr nav a{opacity:.85;transition:opacity .3s}.hhdr nav a:hover{opacity:1}
+.mani4{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:min(94vh,900px);margin-top:clamp(110px,12vw,190px)}
+.m4txt{display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding-right:clamp(24px,3.4vw,56px) !important;padding-bottom:clamp(10px,1vw,16px)}
+.m4h{font-size:clamp(64px,9vw,150px);line-height:.84;letter-spacing:-.04em;margin-top:clamp(30px,3.4vw,52px);position:relative;z-index:3}
+.m4h .l{display:block}
+.m4h .a{display:block;padding-left:1.35em;margin-top:.04em}
+.m4h .a i{background:linear-gradient(100deg,#0A62B4 0%,#1E9BE0 60%,#5FB2EA 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.m4h .b{display:block;text-align:right;margin-top:.04em}
+.m4img{margin:0;position:relative;min-height:520px}
+.m4img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:46% 50%}
+.m4q{position:absolute;left:calc(-1 * clamp(70px,9vw,150px));bottom:clamp(36px,4.4vw,70px);width:min(400px,72%);background:var(--navy);color:var(--off);padding:clamp(24px,2.4vw,38px);box-sizing:border-box;border-radius:4px;box-shadow:0 24px 60px rgba(11,28,45,.28)}
+.m4tag{position:absolute;top:clamp(18px,2vw,28px);right:clamp(18px,2vw,28px);color:var(--navy);opacity:.7}
+@media (max-width:860px){.mani4{grid-template-columns:1fr;min-height:0}.m4h .b{text-align:left;padding-left:.4em;margin-right:0}.m4img{min-height:0;aspect-ratio:4/5;margin-top:36px}.m4q{left:16px;right:16px;width:auto;bottom:-40px}.mani4{margin-bottom:40px}}
+
+.mani5{position:relative;margin-top:clamp(110px,12vw,190px)}
+.m5art{position:relative;aspect-ratio:1600/934;overflow:hidden;background:#E9E4DA;container-type:inline-size}
+.m5img{position:absolute;left:0;top:-5%;width:100%;height:110%;object-fit:cover;display:block;will-change:transform}
+.m5h{position:absolute;inset:0;margin:0;font-size:12.6cqw;line-height:1;letter-spacing:-.03em;color:#07111F;z-index:2}
+.m5h .w{position:absolute;white-space:nowrap;line-height:1}
+.m5h .w1{left:4.4%;top:13.2%}
+.m5h .w2{left:37.6%;top:31.6%}
+.m5h .w3{left:57.2%;top:55.6%}
+.m5h .wt{color:#FFFFFF}
+.m5cap{position:absolute;left:clamp(16px,3vw,44px);bottom:clamp(16px,2.6vw,40px);z-index:3;max-width:320px;color:#07111F}
+.m5cap .tx{font-size:14px;line-height:1.55;margin-top:10px}
+.m5cap .ln{display:flex;align-items:center;gap:14px;margin-top:14px}
+.m5cap .ln span{width:40px;border-top:1px solid currentColor}
+.m5tag{position:absolute;right:clamp(16px,3vw,44px);top:clamp(16px,2.6vw,40px);z-index:3;color:#07111F;opacity:.7}
+@media (max-width:760px){.m5cap{position:static;padding:22px 16px 0;max-width:none}.m5tag{display:none}}
+.tstrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(36px,3.6vw,56px) clamp(20px,2.4vw,40px);margin-top:clamp(40px,4.4vw,70px)}
+.tstrow .tst{width:auto;border-top:1px solid currentColor;padding-top:22px}
+@media (max-width:980px){.tstrow{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.tstrow{grid-template-columns:1fr}}
+.hero video.bg[data-px]{top:-10%;height:120%}
+.chero>[data-px]{top:-8% !important;height:116% !important}
+</style>
+
+</head>
+<body>
+<div id="dc-root">
+
+<div class="tx" style="color:var(--navy);background:var(--off);overflow-x:clip;position:relative">
+<svg width="0" height="0" style="position:absolute"><defs><path id="cr" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"></path></defs></svg>
+<div class="loader" aria-hidden="true"><svg viewBox="241 316 148 167" style="width:84px;height:auto;overflow:visible"><path d="M260.17,475.14l-14.86-2.53.07-61.82c4.24,10.94,9.22,20.97,16.27,30.17,4.92,6.95,10.5,12.95,16.84,18.6,12.81,10.92,28.14,18.35,45.22,16.83,11.69-1.04,25.09-5.32,31.03-15.79,4.56-8.04,3.36-17.87-2.56-24.93-2.94-3.5-6.52-6.06-10.67-8.05-4.63-2.22-9.22-4.02-14.2-5.51l-28.55-8.56c-7.42-2.23-14.37-4.84-21.39-8.03-6.02-2.73-11.47-5.99-16.52-10.23-9.69-8.14-15.58-20.21-14.71-32.92.83-12.14,6.88-22.97,16.74-30.08,7.57-5.46,16.09-9.06,25.32-10.73,4.62-.84,9.03-1.59,13.82-1.6l75.15-.08-.04,59.23c-2.91-7.94-6.58-15.16-11.68-21.92-8.51-12.11-19.65-21.88-32.82-28.63-10.73-5.14-22.49-7.5-34.26-5.91-6.82.92-13.18,2.99-18.41,7.31-6.32,5.22-8.61,13.44-6.02,21.19,2.87,8.62,10.55,13.49,18.73,17.03,7.32,3.17,14.65,5.44,22.31,7.76l26.69,8.07c11.8,3.57,25.8,9.67,34.13,18.7,5.88,6.37,9.39,14.17,9.88,22.93.54,9.76-2.21,19.38-7.56,27.58-9.29,14.24-27.03,21.73-43.43,24.44-20.99,3.46-52.96,1.16-74.51-2.51h0Z" fill="none" stroke="#1E9BE0" stroke-width="5"></path><path class="f" d="M260.17,475.14l-14.86-2.53.07-61.82c4.24,10.94,9.22,20.97,16.27,30.17,4.92,6.95,10.5,12.95,16.84,18.6,12.81,10.92,28.14,18.35,45.22,16.83,11.69-1.04,25.09-5.32,31.03-15.79,4.56-8.04,3.36-17.87-2.56-24.93-2.94-3.5-6.52-6.06-10.67-8.05-4.63-2.22-9.22-4.02-14.2-5.51l-28.55-8.56c-7.42-2.23-14.37-4.84-21.39-8.03-6.02-2.73-11.47-5.99-16.52-10.23-9.69-8.14-15.58-20.21-14.71-32.92.83-12.14,6.88-22.97,16.74-30.08,7.57-5.46,16.09-9.06,25.32-10.73,4.62-.84,9.03-1.59,13.82-1.6l75.15-.08-.04,59.23c-2.91-7.94-6.58-15.16-11.68-21.92-8.51-12.11-19.65-21.88-32.82-28.63-10.73-5.14-22.49-7.5-34.26-5.91-6.82.92-13.18,2.99-18.41,7.31-6.32,5.22-8.61,13.44-6.02,21.19,2.87,8.62,10.55,13.49,18.73,17.03,7.32,3.17,14.65,5.44,22.31,7.76l26.69,8.07c11.8,3.57,25.8,9.67,34.13,18.7,5.88,6.37,9.39,14.17,9.88,22.93.54,9.76-2.21,19.38-7.56,27.58-9.29,14.24-27.03,21.73-43.43,24.44-20.99,3.46-52.96,1.16-74.51-2.51h0Z" fill="#1E9BE0"></path></svg><p class="it pct" style="font-size:40px;color:#9EC1D9"></p></div>
+<div class="menu glow pad" style="display:{{menuDisplay}};padding-top:18px;padding-bottom:28px"><div style="display:flex;justify-content:space-between;align-items:center;height:62px"><div style="width:96px"><svg role="img" aria-label="Stap Feelings" viewBox="243 317 503 231" style="display:block;width:100%;height:auto"><g fill="#EEE9E1"><path d="M726.77,460.14c-12.53,13.75-31.1,21.58-49.79,20.59-10.45-.55-20.02-4.48-28.39-11.01v71.8l-39.81-.02v-150.03l-.64-6.81c-.23-2.46-1.69-4.83-3.51-6.48-2.49-2.25-5.52-2.28-8.96-2.98l52.88-17.21.15,24.42c3.37-4.98,6.02-9.22,10.19-12.84,5.05-4.45,10.9-7.51,17.39-9.35,5.32-1.48,10.5-2.27,16.03-1.87,14.87,1.08,28.73,7.73,38.23,19.27,8.18,9.94,12.43,22.16,13.22,35.02,1.07,17.48-5.24,34.61-16.99,47.51h0ZM696.04,442.46c4.48-14.95,4.58-32.22-.76-46.97-4.25-11.75-13.04-22.33-26.13-22.02-6.75.16-12.71,3.5-16.16,9.26-2.81,4.68-4.32,9.75-4.32,15.37l-.05,67.09c5.76,9.73,17.22,10.8,26.84,5.52,10.51-5.77,17.17-16.83,20.59-28.23h0Z"></path><path d="M260.17,475.14l-14.86-2.53.07-61.82c4.24,10.94,9.22,20.97,16.27,30.17,4.92,6.95,10.5,12.95,16.84,18.6,12.81,10.92,28.14,18.35,45.22,16.83,11.69-1.04,25.09-5.32,31.03-15.79,4.56-8.04,3.36-17.87-2.56-24.93-2.94-3.5-6.52-6.06-10.67-8.05-4.63-2.22-9.22-4.02-14.2-5.51l-28.55-8.56c-7.42-2.23-14.37-4.84-21.39-8.03-6.02-2.73-11.47-5.99-16.52-10.23-9.69-8.14-15.58-20.21-14.71-32.92.83-12.14,6.88-22.97,16.74-30.08,7.57-5.46,16.09-9.06,25.32-10.73,4.62-.84,9.03-1.59,13.82-1.6l75.15-.08-.04,59.23c-2.91-7.94-6.58-15.16-11.68-21.92-8.51-12.11-19.65-21.88-32.82-28.63-10.73-5.14-22.49-7.5-34.26-5.91-6.82.92-13.18,2.99-18.41,7.31-6.32,5.22-8.61,13.44-6.02,21.19,2.87,8.62,10.55,13.49,18.73,17.03,7.32,3.17,14.65,5.44,22.31,7.76l26.69,8.07c11.8,3.57,25.8,9.67,34.13,18.7,5.88,6.37,9.39,14.17,9.88,22.93.54,9.76-2.21,19.38-7.56,27.58-9.29,14.24-27.03,21.73-43.43,24.44-20.99,3.46-52.96,1.16-74.51-2.51h0Z"></path><path d="M470.98,464.52c-6.41-11.98-2.73-26.58,7.68-34.79,4.36-3.44,8.94-5.92,14.15-7.95,8.35-3.25,16.81-5.35,25.49-7.61l17.91-5.44c5.77-1.75,14.72-7.32,15.53-13.15.8-5.79.67-11.56-.03-17.32-1.35-11.16-8.86-17.39-20.13-17.4-7.66-.01-14.52,3.28-19.09,9.45-4.41,5.95-6.87,14.19-8.85,15.85l-13.25,11.11-6.08-8.78-7.98-11.74,11.35-8.23c12.04-7.44,27.74-10.3,41.89-10.39,14.38-.1,30.97,1.82,42.84,10.15,6.94,4.87,12.09,11.61,15.22,19.52,2.24,5.66,3.97,11.46,4.01,17.69l.27,53.57c.02,3.9,2.55,7.35,6.2,8.03l5.39.17c-4.73,3.18-9.34,6.11-14.5,8.64-8.04,3.93-16.25,6.42-24.96,3.73-4.02-1.24-7.16-3.9-9.23-7.53-2.13-3.75-2.85-7.86-2.88-12.2l-.1-13.39-7.45,11.18c-6.8,8.94-15.58,15.93-26.13,19.99-10.64,4.09-22.38,4.25-32.78-.41-6.02-2.69-11.29-6.77-14.49-12.75h0ZM522.04,458.92c10.9,2.79,21.83-3.34,26.67-12.96,2.34-4.64,3.24-9.6,3.23-14.84l-.03-28.99c-3.12,2.95-5.74,5-9.06,6.88l-10.5,5.52c-6.05,3.32-11.54,7.11-16.2,12.19-5.43,5.92-7.55,14-5.24,21.7,1.6,5.33,5.63,9.07,11.13,10.48h0Z"></path><path d="M447.34,468.19c7.98,1.41,14.82-1.9,21.31-6.27l-.26,1.32c-5.49,4.63-11.11,8.66-17.5,11.91-12.61,6.45-27.1,7.98-39.72,1.18-5.38-2.9-9.44-7.06-12.4-12.4-3.06-6.06-4.71-12.49-4.71-19.48v-79.94c7.48-6.47,14.42-13.32,21.38-20.39l17.48-17.85.02,35.57h36.05l-.03,3.11-36.04.02.11,83.44c0,4.11,1.29,7.97,2.97,11.39,2.26,4.59,6.4,7.52,11.33,8.4h0Z"></path><path d="M250.6,514.17h19.63v2.18h-17.41v11.99h13.89v2.04h-13.89v14.35h-2.22v-30.55Z"></path><path d="M293.02,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M335.43,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M377.84,514.17h2.22v28.52h17.31v2.04h-19.54v-30.55Z"></path><path d="M420.11,514.17h2.13v30.55h-2.13v-30.55Z"></path><path d="M444.98,514.17h2.36l18.56,27.04v-27.04h2.22v30.55h-2.27l-18.7-27.13v27.13h-2.18v-30.55Z"></path><path d="M490.91,529.44c0-8.84,6.67-15.74,15.46-15.74,5.46,0,10.09,2.5,12.87,7.08l-1.85,1.06c-2.45-3.89-6.53-6.16-10.97-6.16-6.9,0-13.33,5.56-13.29,13.75.05,7.92,6.2,13.7,13.19,13.7,4.44,0,8.61-2.08,11.02-5.97v-6.76h-11.9v-1.71h13.94v9.12c-2.69,4.68-7.55,7.36-13.1,7.36-8.61,0-15.42-6.67-15.37-15.74Z"></path><path d="M542.58,536.76h2.08c.09,5.09,5.55,6.53,8.52,6.53,3.66,0,7.87-1.43,8.01-5.83.18-4.21-2.36-6.2-8.75-7.36-6.67-1.11-10.28-3.8-10.28-8.38,0-4.86,4.07-8.01,9.68-8.01s10.46,3.19,10.55,8.52h-2.08c-.09-4.63-4.68-6.62-8.47-6.62s-7.5,1.99-7.5,6.11c-.05,3.33,2.64,5.51,8.29,6.48,7.5,1.3,10.92,4.07,10.74,9.26-.19,5.6-5,7.82-10.32,7.73-5.65-.09-10.32-2.92-10.46-8.43Z"></path></g></svg></div><div style="display:flex;align-items:center;gap:28px"><p class="caps" style="color:var(--off)"><a href="index.html" style="opacity:.55">BR</a>&nbsp;&nbsp;EN</p><button data-dcon-click="closeMenu" class="caps" style="color:var(--off)">Close ✕</button></div></div><nav style="font-size:clamp(58px,10vw,140px)"><a class="line se" href="Main-EN.html"><span style="animation-delay:.02s">Home</span></a><a class="line it" href="Projetos.html" style="padding-left:.8em"><span style="animation-delay:.05s">cases</span></a><a class="line it" href="Contato.html" style="padding-left:2em"><span style="animation-delay:.26s">contact</span></a></nav><div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;opacity:.8"><p><a href="mailto:contato@stap.com.br" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">contato@stap.com.br</a><br><a href="tel:+551159080404" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">+55 11 5908-0404</a></p><p><a href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.linkedin.com/company/agenciastap/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a></p></div></div>
+
+
+<header class="hhdr pad">
+<a href="Main-EN.html" aria-label="Stap, home" style="display:block;width:124px"><svg role="img" aria-label="Stap Feelings" viewBox="243 317 503 231" style="display:block;width:100%;height:auto"><g fill="#EEE9E1"><path d="M726.77,460.14c-12.53,13.75-31.1,21.58-49.79,20.59-10.45-.55-20.02-4.48-28.39-11.01v71.8l-39.81-.02v-150.03l-.64-6.81c-.23-2.46-1.69-4.83-3.51-6.48-2.49-2.25-5.52-2.28-8.96-2.98l52.88-17.21.15,24.42c3.37-4.98,6.02-9.22,10.19-12.84,5.05-4.45,10.9-7.51,17.39-9.35,5.32-1.48,10.5-2.27,16.03-1.87,14.87,1.08,28.73,7.73,38.23,19.27,8.18,9.94,12.43,22.16,13.22,35.02,1.07,17.48-5.24,34.61-16.99,47.51h0ZM696.04,442.46c4.48-14.95,4.58-32.22-.76-46.97-4.25-11.75-13.04-22.33-26.13-22.02-6.75.16-12.71,3.5-16.16,9.26-2.81,4.68-4.32,9.75-4.32,15.37l-.05,67.09c5.76,9.73,17.22,10.8,26.84,5.52,10.51-5.77,17.17-16.83,20.59-28.23h0Z"></path><path d="M260.17,475.14l-14.86-2.53.07-61.82c4.24,10.94,9.22,20.97,16.27,30.17,4.92,6.95,10.5,12.95,16.84,18.6,12.81,10.92,28.14,18.35,45.22,16.83,11.69-1.04,25.09-5.32,31.03-15.79,4.56-8.04,3.36-17.87-2.56-24.93-2.94-3.5-6.52-6.06-10.67-8.05-4.63-2.22-9.22-4.02-14.2-5.51l-28.55-8.56c-7.42-2.23-14.37-4.84-21.39-8.03-6.02-2.73-11.47-5.99-16.52-10.23-9.69-8.14-15.58-20.21-14.71-32.92.83-12.14,6.88-22.97,16.74-30.08,7.57-5.46,16.09-9.06,25.32-10.73,4.62-.84,9.03-1.59,13.82-1.6l75.15-.08-.04,59.23c-2.91-7.94-6.58-15.16-11.68-21.92-8.51-12.11-19.65-21.88-32.82-28.63-10.73-5.14-22.49-7.5-34.26-5.91-6.82.92-13.18,2.99-18.41,7.31-6.32,5.22-8.61,13.44-6.02,21.19,2.87,8.62,10.55,13.49,18.73,17.03,7.32,3.17,14.65,5.44,22.31,7.76l26.69,8.07c11.8,3.57,25.8,9.67,34.13,18.7,5.88,6.37,9.39,14.17,9.88,22.93.54,9.76-2.21,19.38-7.56,27.58-9.29,14.24-27.03,21.73-43.43,24.44-20.99,3.46-52.96,1.16-74.51-2.51h0Z"></path><path d="M470.98,464.52c-6.41-11.98-2.73-26.58,7.68-34.79,4.36-3.44,8.94-5.92,14.15-7.95,8.35-3.25,16.81-5.35,25.49-7.61l17.91-5.44c5.77-1.75,14.72-7.32,15.53-13.15.8-5.79.67-11.56-.03-17.32-1.35-11.16-8.86-17.39-20.13-17.4-7.66-.01-14.52,3.28-19.09,9.45-4.41,5.95-6.87,14.19-8.85,15.85l-13.25,11.11-6.08-8.78-7.98-11.74,11.35-8.23c12.04-7.44,27.74-10.3,41.89-10.39,14.38-.1,30.97,1.82,42.84,10.15,6.94,4.87,12.09,11.61,15.22,19.52,2.24,5.66,3.97,11.46,4.01,17.69l.27,53.57c.02,3.9,2.55,7.35,6.2,8.03l5.39.17c-4.73,3.18-9.34,6.11-14.5,8.64-8.04,3.93-16.25,6.42-24.96,3.73-4.02-1.24-7.16-3.9-9.23-7.53-2.13-3.75-2.85-7.86-2.88-12.2l-.1-13.39-7.45,11.18c-6.8,8.94-15.58,15.93-26.13,19.99-10.64,4.09-22.38,4.25-32.78-.41-6.02-2.69-11.29-6.77-14.49-12.75h0ZM522.04,458.92c10.9,2.79,21.83-3.34,26.67-12.96,2.34-4.64,3.24-9.6,3.23-14.84l-.03-28.99c-3.12,2.95-5.74,5-9.06,6.88l-10.5,5.52c-6.05,3.32-11.54,7.11-16.2,12.19-5.43,5.92-7.55,14-5.24,21.7,1.6,5.33,5.63,9.07,11.13,10.48h0Z"></path><path d="M447.34,468.19c7.98,1.41,14.82-1.9,21.31-6.27l-.26,1.32c-5.49,4.63-11.11,8.66-17.5,11.91-12.61,6.45-27.1,7.98-39.72,1.18-5.38-2.9-9.44-7.06-12.4-12.4-3.06-6.06-4.71-12.49-4.71-19.48v-79.94c7.48-6.47,14.42-13.32,21.38-20.39l17.48-17.85.02,35.57h36.05l-.03,3.11-36.04.02.11,83.44c0,4.11,1.29,7.97,2.97,11.39,2.26,4.59,6.4,7.52,11.33,8.4h0Z"></path><path d="M250.6,514.17h19.63v2.18h-17.41v11.99h13.89v2.04h-13.89v14.35h-2.22v-30.55Z"></path><path d="M293.02,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M335.43,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M377.84,514.17h2.22v28.52h17.31v2.04h-19.54v-30.55Z"></path><path d="M420.11,514.17h2.13v30.55h-2.13v-30.55Z"></path><path d="M444.98,514.17h2.36l18.56,27.04v-27.04h2.22v30.55h-2.27l-18.7-27.13v27.13h-2.18v-30.55Z"></path><path d="M490.91,529.44c0-8.84,6.67-15.74,15.46-15.74,5.46,0,10.09,2.5,12.87,7.08l-1.85,1.06c-2.45-3.89-6.53-6.16-10.97-6.16-6.9,0-13.33,5.56-13.29,13.75.05,7.92,6.2,13.7,13.19,13.7,4.44,0,8.61-2.08,11.02-5.97v-6.76h-11.9v-1.71h13.94v9.12c-2.69,4.68-7.55,7.36-13.1,7.36-8.61,0-15.42-6.67-15.37-15.74Z"></path><path d="M542.58,536.76h2.08c.09,5.09,5.55,6.53,8.52,6.53,3.66,0,7.87-1.43,8.01-5.83.18-4.21-2.36-6.2-8.75-7.36-6.67-1.11-10.28-3.8-10.28-8.38,0-4.86,4.07-8.01,9.68-8.01s10.46,3.19,10.55,8.52h-2.08c-.09-4.63-4.68-6.62-8.47-6.62s-7.5,1.99-7.5,6.11c-.05,3.33,2.64,5.51,8.29,6.48,7.5,1.3,10.92,4.07,10.74,9.26-.19,5.6-5,7.82-10.32,7.73-5.65-.09-10.32-2.92-10.46-8.43Z"></path></g></svg></a>
+<nav class="caps hide-s" style="display:flex;gap:clamp(18px,2.6vw,40px)"><a href="Main-EN.html" style="border-bottom:1px solid currentColor;padding-bottom:3px">Home</a><a href="Projetos.html">Cases</a><a href="#conteudo">Content</a><a href="Contato.html">Contact</a></nav>
+<div style="display:flex;align-items:center;gap:22px"><p class="caps hide-s"><a href="index.html" style="opacity:.5">BR</a>&nbsp;&nbsp;EN</p>
+<button data-dcon-click="openMenu" aria-label="Open menu" style="display:flex;flex-direction:column;gap:7px;padding:10px 0;pointer-events:auto"><span style="width:34px;border-top:1px solid var(--off)"></span><span style="width:34px;border-top:1px solid var(--off)"></span></button></div>
+</header>
+<!-- 01 hero -->
+<section class="hero">
+<video class="bg" data-px="0.22" src="assets/ef96763ee90f970fee002b96aa724785.mp4" preload="auto" poster="media/hero.jpg" autoplay muted loop playsinline data-loop="1" aria-hidden="true"></video>
+<div class="shade"></div>
+<div class="mani" style="{{mShow}}"><video id="maniv" data-dcattr-src="{{mSrc}}" preload="metadata" poster="assets/0eedfb81d26171dbf9fcd00362140d0a.jpg" controls playsinline></video><button data-dcon-click="closeM" class="caps pill" style="position:absolute;top:22px;right:22px;z-index:2;background:rgba(238,233,225,.92);color:#0B1C2D;padding:12px 20px">Close ✕</button></div>
+<button class="hit" data-dcon-click="openM" aria-label="Watch the manifesto"><span class="cue caps pill" style="background:rgba(238,233,225,.14);backdrop-filter:blur(10px);color:#fff;padding:14px 22px">▶&nbsp;&nbsp;Watch the manifesto</span></button>
+<div class="lay" style="height:88px" aria-hidden="true"></div>
+<div class="lay pad herogrid" style="display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:clamp(16px,3vw,48px);align-items:center;padding-top:clamp(10px,2vw,30px)">
+<div class="hide-s"><p class="caps">01</p><span style="display:block;height:34px;border-left:1px solid var(--off);margin:12px 0 22px"></span><p class="caps" style="opacity:.9">Strategy<br>Design<br>Architecture<br>Scenography<br>Production<br>Events<br>Experiences</p></div>
+<div>
+<h1 class="se" style="font-size:clamp(58px,11.6vw,186px);line-height:.86">
+<span class="line"><span style="animation-delay:2.1s">Feelings</span></span>
+<span class="line" style="padding-left:.18em"><span style="animation-delay:2.25s"><i class="it">that</i> <span class="gtl" style="background-image:linear-gradient(100deg,#9EC1D9 0%,#5FB2EA 40%,#1E9BE0 75%,#7FC4EE 100%)">build.</span></span></span>
+</h1>
+<div class="fu" style="animation-delay:2.6s;display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;margin-top:clamp(26px,3vw,40px)">
+<p class="tx" style="max-width:360px;font-size:16px">At Stap, we turn brands into spaces, projects into reality and experiences into real connections.</p>
+<a href="#projetos" class="caps" style="display:inline-flex;align-items:center;gap:18px"><span class="ring">→</span>See projects</a>
+</div>
+</div>
+</div>
+<div class="lay pad" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding-bottom:clamp(24px,3vw,40px)">
+<p class="caps hide-s">Scroll<br>↓</p>
+<button data-dcon-click="openM" class="caps" style="display:inline-flex;align-items:center;gap:14px;text-align:left;color:var(--off)"><span class="ring" style="width:44px;height:44px;font-size:12px">▶</span>Manifesto<br>Stap statement · 0:56</button>
+</div>
+</section>
+
+<!-- 02 manifesto -->
+<section class="mani5" id="manifesto">
+<div class="m5art">
+<img class="m5img" data-px="0.07" src="media/col-design.jpg" alt="Collage: a woman’s face among leaves, flowers and stripes">
+<h2 class="se m5h" aria-label="What remains beyond the form."><span class="w w1">What re<span class="wt">mains</span></span><i class="it w w2 wt">beyond</i><span class="w w3"><span class="wt">the</span> form.</span></h2>
+<p class="caps m5tag">Manifesto · Stap Feelings</p>
+</div>
+<div class="m5cap"><p class="caps">Manifesto</p><p class="tx">Every project starts with a feeling: what the brand wants people to take home once the lights go out.</p><p class="caps ln"><span></span>Feel · Think · Build</p></div>
+</section>
+
+<!-- 03 numeros -->
+<section class="pad" style="padding-top:clamp(100px,11vw,170px)">
+<div class="nums6"><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Since 1992</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">34</p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">years of <i class="it">history</i></p></div><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Projects</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">+4,000</p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">projects <i class="it">delivered</i></p></div><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Clients</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">+250</p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">clients <i class="it">served</i></p></div><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Stands</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">+500</p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">stands <i class="it">built</i></p></div><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Area</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">+250<span style="font-size:.55em"> k</span></p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">m² of <i class="it">built space</i></p></div><div style="border-top:1px solid var(--navy);padding-top:18px"><p class="caps">Agri Circuit</p><p class="tk gt" style="font-size:clamp(110px,12.4vw,200px);line-height:1;margin:-.08em 0 -.2em">7</p><p class="se" style="font-size:clamp(28px,2.6vw,40px)">builds <i class="it">at once</i></p></div></div>
+</section>
+
+<!-- 04 pilares -->
+<section class="pad" style="padding-top:clamp(90px,10vw,150px)">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,3vw,44px)">
+<h2 class="se" style="font-size:clamp(52px,7vw,110px)">Where we are <i class="it">specialists</i></h2>
+<p class="tx" style="max-width:340px;opacity:.8;padding-bottom:10px">Two sectors where Stap has its own hub, a specialist team and decades on the show floor.</p>
+</div>
+<div class="pils">
+<a class="pil" href="Projetos.html" style="background:#0A62B4">
+<div style="display:flex;justify-content:space-between"><p class="caps">Hub 01</p><p class="caps">Agrishow · Coopavel · Field days</p></div>
+<div><p class="se" style="font-size:clamp(64px,8vw,132px);line-height:.86">Agri<i class="it">business</i></p>
+<p class="tx" style="max-width:420px;margin-top:18px;opacity:.9">A hub dedicated to agribusiness: trade show stands, field days and gatherings that speak the farmer’s language.</p>
+<div class="lg" style="margin-top:26px"><img src="media/logos/fmc.png" alt="FMC"><img src="media/logos/corteva.png" alt="Corteva"><img src="media/logos/basf.png" alt="BASF"><img src="media/logos/abrapa.png" alt="Abrapa"><img src="media/logos/bridgestone.png" alt="Bridgestone Firestone"></div>
+<span class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:26px"><span class="ring">→</span>See agri projects</span></div></a>
+<a class="pil" href="Projetos.html" style="background:#0B1C2D">
+<div style="display:flex;justify-content:space-between"><p class="caps">Hub 02</p><p class="caps">Festivals · Test drives · Launches</p></div>
+<div><p class="se" style="font-size:clamp(64px,8vw,132px);line-height:.86">Auto<i class="it">motive</i></p>
+<p class="tx" style="max-width:420px;margin-top:18px;opacity:.9">Automotive specialists: stands, festivals, test-drive tracks and model launches.</p>
+<div class="lg" style="margin-top:26px"><img src="media/logos/vw.png" alt="Volkswagen"><img src="media/logos/ford.png" alt="Ford"><img src="media/logos/chevrolet.png" alt="Chevrolet"><img src="media/logos/toyota.png" alt="Toyota"><img src="media/logos/mercedes.png" alt="Mercedes-Benz"><img src="media/logos/lexus.png" alt="Lexus"><img src="media/logos/troller.png" alt="Troller"></div>
+<span class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:26px"><span class="ring">→</span>See auto projects</span></div></a>
+</div>
+</section>
+
+<!-- 05 projetos -->
+<section id="projetos" style="padding-top:clamp(100px,11vw,170px)">
+<div class="pad" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;align-items:end;margin-bottom:clamp(30px,3.4vw,50px)">
+<div><p class="caps vl">Featured projects</p><h2 class="se" style="font-size:clamp(56px,7.6vw,120px);margin-top:22px">Experiences that <i class="it">move</i> brands and people.</h2></div>
+<a href="Projetos.html" class="caps" style="justify-self:end;display:inline-flex;align-items:center;gap:16px"><span class="ring">→</span>See all projects</a>
+</div>
+<div class="railwrap " data-dcon-mousemove="edge_rc" data-dcon-mouseleave="edgeOff"><div id="rc" class="rail pad" data-dcon-scroll="sc_rc"><a class="case" href="Case-vw-festival.html" aria-label="Volkswagen, VW Festival Curitiba 2025"><div class="ph"><video src="assets/1270274e2ad44288987ce342d7f1987d.mp4" poster="media/vwcwb.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><img src="media/logos/vw.png" alt=""><p class="caps">Festival</p><p class="se" style="font-size:30px">VW Festival Curitiba 2025</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">01 · Festival</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Power, performance and experience for the crowd.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Volkswagen</span></a>
+<a class="case" href="Case-grunner-agrishow.html" aria-label="Grunner, Agrishow 2026"><div class="ph"><video src="assets/73ff240cfe818def1b311fdf94106e68.mp4" poster="media/grunner.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><span class="tk" style="font-size:52px">Grunner</span><p class="caps">Trade show</p><p class="se" style="font-size:30px">Agrishow 2026</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">02 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Spaces that move agribusiness forward.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Grunner</span></a>
+<a class="case" href="Projetos.html" aria-label="Syngenta, Winery"><div class="ph"><video src="assets/9ebb046bf2f839b1a48388d164457152.mp4" poster="media/syngenta.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><span class="tk" style="font-size:52px">Syngenta</span><p class="caps">Field day</p><p class="se" style="font-size:30px">Winery</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">03 · Field day</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">A field day among the vineyards.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Syngenta</span></a>
+<a class="case" href="Case-seara-superbahia.html" aria-label="Seara, Super Bahia"><div class="ph"><video src="assets/48555f20c5f9a8f0601cb640c132570e.mp4" poster="media/seara.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><span class="tk" style="font-size:52px">Seara</span><p class="caps">Trade show</p><p class="se" style="font-size:30px">Super Bahia</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">04 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">The whole brand in a slatted sculpture.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Seara</span></a>
+<a class="case" href="Case-ox-beautyfair.html" aria-label="OX Science, Beauty Fair"><div class="ph"><video src="assets/ba6100ac6a5bccece81d7fce5d424b31.mp4" poster="media/ox.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><span class="tk" style="font-size:52px">OX Science</span><p class="caps">Trade show</p><p class="se" style="font-size:30px">Beauty Fair</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">05 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Golden light, a queue at the door and a selfie in every corner.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">OX Science</span></a>
+<a class="case" href="Case-fmc-circuito.html" aria-label="FMC, Coopavel"><div class="ph"><video src="assets/3f0a4f835e20402481809f729141d562.mp4" poster="media/fmc.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><img src="media/logos/fmc.png" alt=""><p class="caps">Trade show</p><p class="se" style="font-size:30px">Coopavel</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">06 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">A stand with personality in the middle of the field.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">FMC</span></a>
+<a class="case" href="Case-VW.html" aria-label="Volkswagen, Circuito Agro"><div class="ph"><video src="assets/58d09fc925c93aa5504ab30026594a1e.mp4" poster="media/vwagro.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><img src="media/logos/vw.png" alt=""><p class="caps">Circuit</p><p class="se" style="font-size:30px">Agri Circuit</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">07 · Circuit</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Wood, greenery and the whole line on display.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Volkswagen</span></a>
+<a class="case" href="Case-syngenta-conselhos.html" aria-label="Syngenta, Advisory Councils Meeting"><div class="ph"><video src="assets/146d2e736f816f6c0c64d533bfb2e89f.mp4" poster="media/synconselhos.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" aria-hidden="true"></video><div class="ov"><span class="tk" style="font-size:52px">Syngenta</span><p class="caps">Corporate event</p><p class="se" style="font-size:30px">Advisory Councils Meeting</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">08 · Corporate event</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Stage, light and content for thousands of farmers.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Syngenta</span></a>
+<a class="case" href="Case-ford-circuito.html" aria-label="Ford, Agri shows"><div class="ph"><img src="media/ford-real.jpg" alt="" loading="lazy"><div class="ov"><img src="media/logos/ford.png" alt=""><p class="caps">Trade show</p><p class="se" style="font-size:30px">Agri shows</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">09 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Ford in the middle of the field, from render to real.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Ford</span></a>
+<a class="case" href="Case-lorenzetti-revestir.html" aria-label="Lorenzetti, Revestir"><div class="ph"><img src="assets/416cc6c1c93047e1434a471eb7520556.jpg" alt="" loading="lazy"><div class="ov"><img src="media/logos/lorenzetti.png" alt=""><p class="caps">Trade show</p><p class="se" style="font-size:30px">Revestir</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">10 · Trade show</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Light and water as a brand experience.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Lorenzetti</span></a>
+<a class="case" href="Case-toyota-japao.html" aria-label="Toyota, Japan Festival"><div class="ph"><img src="assets/51280d1c78db0953b330ab0271ce8980.jpg" alt="" loading="lazy"><div class="ov"><img src="media/logos/toyota.png" alt=""><p class="caps">Festival</p><p class="se" style="font-size:30px">Japan Festival</p></div></div><p class="caps" style="margin-top:16px;color:var(--azul)">11 · Festival</p><p class="md" style="margin-top:6px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;color:var(--azul)">Japanese culture translated into space.</p><span class="sm pill" style="margin-top:14px;padding:7px 15px;background:var(--azul);color:var(--off)">Toyota</span></a>
+<a class="case azul" href="Projetos.html" style="border-radius:10px;aspect-ratio:4/5;color:var(--off);padding:26px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between"><p class="caps">Over 4,000 projects</p><p class="se" style="font-size:clamp(54px,5vw,80px)">See <i class="it">all</i></p></a></div><div class="pad" style="display:flex;align-items:center;gap:24px;margin-top:28px"><div class="track" style="flex:1"><div class="thumb" style="{{th_rc}}"></div><label for="rc-s" style="position:absolute;width:1px;height:1px;overflow:hidden">Browse</label><input id="rc-s" type="range" min="0" max="1000" value="{{pv_rc}}" data-dcon-input="sk_rc"></div><div style="display:flex;gap:8px"><button class="plus" aria-label="Previous" data-dcon-click="pr_rc" style="border:1px solid currentColor;width:44px;height:44px">←</button><button class="plus" aria-label="Next" data-dcon-click="nx_rc" style="border:1px solid currentColor;width:44px;height:44px">→</button></div></div></div>
+</section>
+
+<!-- 06 clientes -->
+<section class="pad" style="padding-top:clamp(100px,11vw,170px)">
+<h2 class="se" style="font-size:clamp(40px,4.6vw,70px);margin:0 0 clamp(26px,3vw,40px)">Brands that already <i class="it">build</i> with us</h2>
+<div class="logos" style="border-top:1px solid rgba(11,28,45,.14);border-left:1px solid rgba(11,28,45,.14)"><a href="Projetos.html" aria-label="Projects for Abrapa"><img src="media/logos/abrapa.png" alt="Abrapa" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Accenture"><img src="media/logos/accenture.png" alt="Accenture" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for AE"><img src="media/logos/ae.png" alt="AE" loading="lazy"></a><a href="Case-basf-circuito.html" aria-label="Projects for BASF"><img src="media/logos/basf.png" alt="BASF" loading="lazy"></a><a href="Case-braskem-feiplastic.html" aria-label="Projects for Braskem"><img src="media/logos/braskem.png" alt="Braskem" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Bridgestone"><img src="media/logos/bridgestone.png" alt="Bridgestone" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Chevrolet"><img src="media/logos/chevrolet.png" alt="Chevrolet" loading="lazy"></a><a href="Cliente-Corteva.html" aria-label="Projects for Corteva"><img src="media/logos/corteva.png" alt="Corteva" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Dell"><img src="media/logos/dell.png" alt="Dell" loading="lazy"></a><a href="Case-ducati-duasrodas.html" aria-label="Projects for Ducati"><img src="media/logos/ducati.png" alt="Ducati" loading="lazy"></a><a href="Case-fmc-circuito.html" aria-label="Projects for FMC"><img src="media/logos/fmc.png" alt="FMC" loading="lazy"></a><a href="Case-ford-circuito.html" aria-label="Projects for Ford"><img src="media/logos/ford.png" alt="Ford" loading="lazy"></a><a href="Case-harley-rodeo.html" aria-label="Projects for Harley-Davidson"><img src="media/logos/harley.png" alt="Harley-Davidson" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Helm"><img src="media/logos/helm.png" alt="Helm" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Indian"><img src="media/logos/indian.png" alt="Indian" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Jaguar Land Rover"><img src="media/logos/jaguar-landrover.png" alt="Jaguar Land Rover" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Lanxess"><img src="media/logos/lanxess.png" alt="Lanxess" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Lexus"><img src="media/logos/lexus.png" alt="Lexus" loading="lazy"></a><a href="Case-lorenzetti-revestir.html" aria-label="Projects for Lorenzetti"><img src="media/logos/lorenzetti.png" alt="Lorenzetti" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Marelli"><img src="media/logos/marelli.png" alt="Marelli" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Mercedes"><img src="media/logos/mercedes.png" alt="Mercedes" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Motorola"><img src="media/logos/motorola.png" alt="Motorola" loading="lazy"></a><a href="Case-mutant-cx.html" aria-label="Projects for Mutant"><img src="media/logos/mutant.png" alt="Mutant" loading="lazy"></a><a href="Case-nupay-vtex.html" aria-label="Projects for NuPay"><img src="media/logos/nupay.png" alt="NuPay" loading="lazy"></a><a href="Case-pepsico-apas.html" aria-label="Projects for Pepsico"><img src="media/logos/pepsico.png" alt="Pepsico" loading="lazy"></a><a href="Case-petronas-f1.html" aria-label="Projects for Petronas"><img src="media/logos/petronas.png" alt="Petronas" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Pirelli"><img src="media/logos/pirelli.png" alt="Pirelli" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Polaris"><img src="media/logos/polaris.png" alt="Polaris" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Polyplastics"><img src="media/logos/polyplastics.png" alt="Polyplastics" loading="lazy"></a><a href="Case-sherwin-convencao.html" aria-label="Projects for Sherwin-Williams"><img src="media/logos/sherwin.png" alt="Sherwin-Williams" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for SPTuris"><img src="media/logos/spturis.png" alt="SPTuris" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Tintas MC"><img src="media/logos/tintasmc.png" alt="Tintas MC" loading="lazy"></a><a href="Cliente-Toyota.html" aria-label="Projects for Toyota"><img src="media/logos/toyota.png" alt="Toyota" loading="lazy"></a><a href="Projetos.html" aria-label="Projects for Troller"><img src="media/logos/troller.png" alt="Troller" loading="lazy"></a><a href="Cliente-Volkswagen.html" aria-label="Projects for Volkswagen"><img src="media/logos/vw.png" alt="Volkswagen" loading="lazy"></a></div>
+</section>
+
+<!-- 07 render -->
+<section class="rr2" id="render">
+<div class="rr2-top pad"><p class="caps">Signature · From render to real</p><a href="Projetos.html" class="caps" style="display:inline-flex;align-items:center;gap:14px"><span class="ring" style="width:40px;height:40px">→</span>See all cases</a></div>
+<div class="rr2-hero">
+<div class="rr2-col">
+<div class="rr2-l pad">
+<h2 class="se rr2-sig">From render<span class="ao"><span class="bar"></span><i class="it blue">to</i></span><i class="it blue real">real.</i></h2>
+<p class="caps rr2-claim">The approved project.<br>The experience delivered.</p>
+</div>
+<figure class="rr2-render"><img src="media/rr/enlist-render.jpg" alt="3D render of the Enlist stand"></figure>
+</div>
+<figure class="rr2-real"><img data-px="0.05" src="media/rr/enlist-real.jpg" alt="Enlist stand, built"></figure>
+<p class="caps rr2-tag l"><span>Render</span><span class="ln"></span></p>
+<p class="caps rr2-tag r"><span class="ln"></span><span>Real · Enlist</span></p>
+</div>
+</section>
+
+<!-- 08 o que fazemos -->
+<section class="pad" style="padding-top:clamp(100px,11vw,170px)">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,3vw,44px)">
+<h2 class="se" style="font-size:clamp(60px,9vw,140px)">What <i class="it">we do</i></h2>
+<p class="tx" style="max-width:340px;padding-bottom:14px;opacity:.8">Three fronts, one team. You talk to the same people from briefing to teardown.</p>
+</div>
+<div class="acc" style="border-color:rgba(11,28,45,.3)"><button data-dcon-click="o0" aria-expanded="{{x0}}"><span style="display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,.8fr);gap:20px;align-items:baseline"><span class="sm" style="opacity:.6">01</span><span class="se" style="font-size:clamp(38px,4.6vw,72px)">Design and architecture</span><span class="tx hide-s" style="opacity:.75">Stands, brand environments and corporate spaces.</span></span><span class="plus" style="border:1px solid currentColor;{{r0}}">+</span></button><div class="body" style="{{b0}}"><div><div class="accb" style="display:grid;grid-template-columns:56px repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px 28px;padding-bottom:34px"><span class="hide-s"></span><p class="tx" style="font-size:17px;max-width:420px">Strategy and design that are born thinking about the build, the deadline and the budget. In-house architecture, with more synergy between concept and execution.</p><div><p class="caps" style="opacity:.6;margin-bottom:12px">What we deliver</p><div class="chips sm"><span>Spatial strategy</span><span>Stand architecture</span><span>3D design and render</span><span>Construction documents</span><span>Corporate environments</span></div></div></div></div></div></div>
+<div class="acc" style="border-color:rgba(11,28,45,.3)"><button data-dcon-click="o1" aria-expanded="{{x1}}"><span style="display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,.8fr);gap:20px;align-items:baseline"><span class="sm" style="opacity:.6">02</span><span class="se" style="font-size:clamp(38px,4.6vw,72px)">Scenography and build</span><span class="tx hide-s" style="opacity:.75">Production and build with the same team.</span></span><span class="plus" style="border:1px solid currentColor;{{r1}}">+</span></button><div class="body" style="{{b1}}"><div><div class="accb" style="display:grid;grid-template-columns:56px repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px 28px;padding-bottom:34px"><span class="hide-s"></span><p class="tx" style="font-size:17px;max-width:420px">Innovative, modern and safe structures, created for each project. We build what we designed and deliver what the 3D promised.</p><div><p class="caps" style="opacity:.6;margin-bottom:12px">What we deliver</p><div class="chips sm"><span>Scenography</span><span>Joinery and structures</span><span>Production</span><span>Logistics between cities</span><span>Build and teardown</span></div></div></div></div></div></div>
+<div class="acc" style="border-color:rgba(11,28,45,.3)"><button data-dcon-click="o2" aria-expanded="{{x2}}"><span style="display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,.8fr);gap:20px;align-items:baseline"><span class="sm" style="opacity:.6">03</span><span class="se" style="font-size:clamp(38px,4.6vw,72px)">Communication and events</span><span class="tx hide-s" style="opacity:.75">Conventions, launches and brand experience.</span></span><span class="plus" style="border:1px solid currentColor;{{r2}}">+</span></button><div class="body" style="{{b2}}"><div><div class="accb" style="display:grid;grid-template-columns:56px repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px 28px;padding-bottom:34px"><span class="hide-s"></span><p class="tx" style="font-size:17px;max-width:420px">Specialist live marketing planning, with smart, tailored delivery for each project, from concept to on-the-day operation.</p><div><p class="caps" style="opacity:.6;margin-bottom:12px">What we deliver</p><div class="chips sm"><span>Live marketing</span><span>Conventions and launches</span><span>Brand experience</span><span>Content and audiovisual</span><span>Activations</span></div></div></div></div></div></div>
+
+</section>
+
+<!-- 09 destaques -->
+<section style="margin-top:clamp(100px,11vw,170px)">
+<div class="ban">
+<div class="slide" style="{{sv0}}" aria-hidden="{{sa0}}"><video src="assets/4c28aadf692ffa3b83c5ec1061659519.mp4" poster="media/vwfest.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="full" aria-hidden="true"></video><div class="sh"></div><div class="pad" style="position:absolute;left:0;right:0;bottom:clamp(80px,9vw,120px);z-index:2;max-width:640px"><p class="caps" style="opacity:.85">Festival · Volkswagen</p><p class="se" style="font-size:clamp(52px,6.6vw,108px);margin-top:12px">Volkswagen <i class="it">VW Festival</i></p><p class="tx" style="max-width:420px;margin-top:16px;opacity:.85">Three days of experiences, test drives and over 650 Best Drives.</p><a href="Projetos.html" class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:24px"><span class="ring">→</span>See the case</a></div></div>
+<div class="slide" style="{{sv1}}" aria-hidden="{{sa1}}"><video src="assets/73ff240cfe818def1b311fdf94106e68.mp4" poster="media/grunner.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="blur" aria-hidden="true"></video><video src="assets/73ff240cfe818def1b311fdf94106e68.mp4" poster="media/grunner.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="vert" aria-hidden="true"></video><div class="sh"></div><div class="pad" style="position:absolute;left:0;right:0;bottom:clamp(80px,9vw,120px);z-index:2;max-width:640px"><p class="caps" style="opacity:.85">Trade show · Grunner</p><p class="se" style="font-size:clamp(52px,6.6vw,108px);margin-top:12px">Grunner <i class="it">Agrishow 2026</i></p><p class="tx" style="max-width:420px;margin-top:16px;opacity:.85">A place to gather in the middle of the biggest agri show.</p><a href="Projetos.html" class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:24px"><span class="ring">→</span>See the case</a></div></div>
+<div class="slide" style="{{sv2}}" aria-hidden="{{sa2}}"><video src="assets/146d2e736f816f6c0c64d533bfb2e89f.mp4" poster="media/synconselhos.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="blur" aria-hidden="true"></video><video src="assets/146d2e736f816f6c0c64d533bfb2e89f.mp4" poster="media/synconselhos.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="vert" aria-hidden="true"></video><div class="sh"></div><div class="pad" style="position:absolute;left:0;right:0;bottom:clamp(80px,9vw,120px);z-index:2;max-width:640px"><p class="caps" style="opacity:.85">Corporate event · Syngenta</p><p class="se" style="font-size:clamp(52px,6.6vw,108px);margin-top:12px">Syngenta <i class="it">Advisory Councils Meeting</i></p><p class="tx" style="max-width:420px;margin-top:16px;opacity:.85">Stage, light and content for thousands of farmers.</p><a href="Projetos.html" class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:24px"><span class="ring">→</span>See the case</a></div></div>
+<div class="slide" style="{{sv3}}" aria-hidden="{{sa3}}"><video src="assets/ba6100ac6a5bccece81d7fce5d424b31.mp4" poster="media/ox.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="blur" aria-hidden="true"></video><video src="assets/ba6100ac6a5bccece81d7fce5d424b31.mp4" poster="media/ox.jpg" autoplay muted loop playsinline data-loop="1" preload="auto" class="vert" aria-hidden="true"></video><div class="sh"></div><div class="pad" style="position:absolute;left:0;right:0;bottom:clamp(80px,9vw,120px);z-index:2;max-width:640px"><p class="caps" style="opacity:.85">Trade show · OX Science</p><p class="se" style="font-size:clamp(52px,6.6vw,108px);margin-top:12px">OX Science <i class="it">Beauty Fair</i></p><p class="tx" style="max-width:420px;margin-top:16px;opacity:.85">Golden light, a queue at the door and a selfie in every corner.</p><a href="Projetos.html" class="caps" style="display:inline-flex;align-items:center;gap:16px;margin-top:24px"><span class="ring">→</span>See the case</a></div></div>
+
+<div class="pad" style="position:absolute;left:0;right:0;bottom:24px;z-index:3;display:flex;align-items:center;gap:24px">
+<p class="caps" style="white-space:nowrap">Em destaque · {{bn}} / 04</p>
+<div class="bars" style="flex:1"><button data-dcon-click="g0" aria-label="Highlight 1"><span><i style="{{pb0}}"></i></span></button><button data-dcon-click="g1" aria-label="Highlight 2"><span><i style="{{pb1}}"></i></span></button><button data-dcon-click="g2" aria-label="Highlight 3"><span><i style="{{pb2}}"></i></span></button><button data-dcon-click="g3" aria-label="Highlight 4"><span><i style="{{pb3}}"></i></span></button></div>
+<div style="display:flex;gap:8px"><button class="plus" data-dcon-click="bp" aria-label="Previous highlight" style="border:1px solid currentColor;width:44px;height:44px">←</button><button class="plus" data-dcon-click="bx" aria-label="Next highlight" style="border:1px solid currentColor;width:44px;height:44px">→</button></div>
+</div>
+</div>
+</section>
+
+<!-- 10 quem constroi -->
+<section style="padding-top:clamp(100px,11vw,170px)">
+<div class="pad" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;align-items:end;margin-bottom:clamp(30px,3.4vw,50px)">
+<h2 class="se" style="font-size:clamp(60px,9vw,140px)">Our <i class="it">people</i></h2>
+<p class="tx" style="max-width:380px;justify-self:end;opacity:.8">A creative team with 34 years of know-how that thinks, designs, produces and builds under one roof.</p>
+</div>
+<div class="railwrap " data-dcon-mousemove="edge_rp" data-dcon-mouseleave="edgeOff"><div id="rp" class="rail pad" data-dcon-scroll="sc_rp"><figure class="person pc"><div class="pf"><img src="media/team/ricardo.jpg" alt="Ricardo Gomes" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Founder</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Ricardo does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Ricardo Gomes</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Founder</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/virginia.jpg" alt="Virginia Carrieri" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">CEO</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Virginia does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Virginia Carrieri</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">CEO</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/marise.jpg" alt="Marise" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">CEO · Amei de Paixão</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Marise does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Marise</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">CEO · Amei de Paixão</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/cremonesi.jpg" alt="Cremonesi" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">COO</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Cremonesi does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Cremonesi</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">COO</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/silmara.jpg" alt="Silmara" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Finance Director</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Silmara does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Silmara</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Finance Director</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/adriano.jpg" alt="Adriano" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Architect</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Adriano does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Adriano</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Architect</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/kco.jpg" alt="Kco" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Head of Art</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Kco does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Kco</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Head of Art</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/paula.jpg" alt="Paula" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">3D Designer</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Paula does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Paula</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">3D Designer</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/wagner.jpg" alt="Wagner" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Artwork</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Wagner does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Wagner</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Artwork</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/geovani.jpg" alt="Geovani" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Head of Production</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Geovani does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Geovani</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Head of Production</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/anacelia.jpg" alt="Ana Célia" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Pre-production</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Ana does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Ana Célia</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Pre-production</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/flavia.jpg" alt="Flávia" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Account Manager</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Flávia does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Flávia</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Account Manager</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/giuliana.jpg" alt="Giuliana" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Account Manager</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Giuliana does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Giuliana</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Account Manager</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/caca.jpg" alt="Cacá" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Account Manager</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Cacá does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Cacá</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Account Manager</p></figcaption></figure>
+<figure class="person pc"><div class="pf"><img src="media/team/bia.jpg" alt="Bia" loading="lazy"><div class="bio"><p class="caps" style="opacity:.75">Office Manager</p><p class="sm" style="margin-top:12px;opacity:.75">At Stap since [year]</p><p class="se" style="font-size:22px;line-height:1.15;margin-top:8px">[What Bia does, in one sentence.]</p><p class="sm" style="margin-top:10px"><span style="opacity:.6">A feeling that builds:</span> <i class="it" style="font-size:18px">[one word]</i></p></div></div><figcaption style="margin-top:16px"><p class="se" style="font-size:32px;line-height:1">Bia</p><p class="caps" style="margin-top:8px;color:var(--azul);letter-spacing:.2em">Office Manager</p></figcaption></figure>
+<a class="person" href="Contato.html" style="display:block"><div style="aspect-ratio:3/4;border:1px dashed rgba(11,28,45,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px"><span class="ring">+</span><p class="se" style="font-size:30px;text-align:center">Come <i class="it">build</i><br>with us</p></div></a></div><div class="pad" style="display:flex;align-items:center;gap:24px;margin-top:28px"><div class="track" style="flex:1"><div class="thumb" style="{{th_rp}}"></div><label for="rp-s" style="position:absolute;width:1px;height:1px;overflow:hidden">Browse</label><input id="rp-s" type="range" min="0" max="1000" value="{{pv_rp}}" data-dcon-input="sk_rp"></div><div style="display:flex;gap:8px"><button class="plus" aria-label="Previous" data-dcon-click="pr_rp" style="border:1px solid currentColor;width:44px;height:44px">←</button><button class="plus" aria-label="Next" data-dcon-click="nx_rp" style="border:1px solid currentColor;width:44px;height:44px">→</button></div></div></div>
+</section>
+
+<!-- 11 casa -->
+<section class="pad" style="padding-top:clamp(90px,10vw,150px);padding-bottom:clamp(70px,8vw,120px);background:var(--navy);color:var(--off);margin-top:clamp(100px,11vw,170px)">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px" class="sm">
+<div style="display:flex;gap:18px;align-items:flex-end"><img src="media/selo-off.png" alt="140 Prestes João seal" style="width:clamp(64px,5.6vw,88px);height:auto;display:block"><p style="line-height:1.6"><a href="https://waze.com/ul?q=Rua%20Prestes%20Jo%C3%A3o%2C%20140%2C%20Jardim%20Luzit%C3%A2nia%2C%20S%C3%A3o%20Paulo&navigate=yes" target="_blank" rel="noopener" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">Rua Prestes João, 140<br>Jardim Luzitânia · São Paulo</a></p></div>
+<p style="text-align:right;line-height:1.6">Stap’s house<br>since 1992</p>
+</div>
+<div class="casa3">
+<div class="c3img"><img src="media/casa3.jpg" alt="Stap house, photo 1" style="{{ci0}}"><img src="media/c1.jpg" alt="Stap house, photo 2" style="{{ci1}}"><img src="media/c2.jpg" alt="Stap house, photo 3" style="{{ci2}}"><img src="media/casa4.jpg" alt="Stap house, photo 4" style="{{ci3}}"><div class="selo-tab"><img src="media/selo-off.png" alt=""></div></div>
+<p class="c3 c3a se">Make yourself</p>
+<p class="c3 c3b it">at home.</p>
+<p class="c3 c3c tk">Prestes</p>
+<p class="c3 c3d"><i class="it">João,</i> <span class="tk">140</span></p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:30px;align-items:end;margin-top:clamp(40px,5vw,70px)" class="sm">
+<p style="max-width:320px;line-height:1.6">More than an office, a house of inspiration: a place to be, create, plan and build together.</p>
+<div style="display:flex;gap:8px;justify-content:center"><button data-dcon-click="cg0" aria-label="House photo 1" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center"><span style="display:block;width:28px;height:2px;{{cb0}}"></span></button><button data-dcon-click="cg1" aria-label="House photo 2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center"><span style="display:block;width:28px;height:2px;{{cb1}}"></span></button><button data-dcon-click="cg2" aria-label="House photo 3" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center"><span style="display:block;width:28px;height:2px;{{cb2}}"></span></button><button data-dcon-click="cg3" aria-label="House photo 4" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center"><span style="display:block;width:28px;height:2px;{{cb3}}"></span></button></div>
+<a href="Contato.html" class="caps" style="justify-self:end;display:inline-flex;align-items:center;gap:16px"><span class="ring">→</span>Visit the house</a>
+</div>
+</section>
+
+<!-- 11b depoimentos -->
+<section class="pad" id="clientes-dizem" style="padding-top:clamp(100px,11vw,170px)"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap"><h2 class="se" style="font-size:clamp(52px,6.4vw,104px);line-height:.9">What our<br><i class="it" style="color:#1F4FA8">clients say</i></h2><p class="tx" style="max-width:340px;font-size:16px">Brands that come back, year after year, to build with us again.</p></div><div class="tstrow"><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“Working with Stap means trust, quality and respect. True partners, able to turn the impossible into possible.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/felipe.jpg" alt="Felipe Alves" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Felipe Alves</p><p class="caps" style="opacity:.6;margin-top:4px">Brand Experience, Volkswagen Brazil</p></div></figcaption></figure><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“Working with Stap feels like home to me. You know you are being heard, and every project ends with the feeling that everyone gave their best.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/fernanda.jpg" alt="Fernanda Maluf" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Fernanda Maluf</p><p class="caps" style="opacity:.6;margin-top:4px">Marketing, Braskem</p></div></figcaption></figure><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“Stap’s quality and creativity are beyond measure. We earned our clients’ recognition at the main trade shows across the country.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/evelin.jpg" alt="Evelin Queiroz" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Evelin Queiroz</p><p class="caps" style="opacity:.6;margin-top:4px">Corporate Communications, FMC</p></div></figcaption></figure><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“Stap is a different kind of agency: creative and human. We have worked together for over 15 years and results have been exceeded year after year.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/vanessa.jpg" alt="Vanessa Vittorello" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Vanessa Vittorello</p><p class="caps" style="opacity:.6;margin-top:4px">Marketing, Braskem</p></div></figcaption></figure><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“It is so good to count on a great partner like Stap! A capable team, committed to exceeding expectations in every delivery.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/sylvia.jpg" alt="Sylvia Sciencio" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Sylvia Sciencio</p><p class="caps" style="opacity:.6;margin-top:4px">Marketing, Lanxess</p></div></figcaption></figure><figure class="tst"><blockquote class="se" style="margin:0;font-size:clamp(26px,2.2vw,32px);line-height:1.15">“A team with broad expertise, from planning to delivering the event. I wholeheartedly recommend Stap for any event.”</blockquote><figcaption style="margin-top:24px;display:flex;align-items:center;gap:16px"><img src="media/tst/cristiane.jpg" alt="Cristiane Andrade" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;display:block"><div><p class="tx" style="font-weight:500">Cristiane Andrade</p><p class="caps" style="opacity:.6;margin-top:4px">Communications, HELM</p></div></figcaption></figure></div></section>
+
+<!-- 12 instagram -->
+<section id="conteudo" style="padding-top:clamp(100px,11vw,170px)">
+<div class="pad">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(26px,3vw,40px)">
+<div><p class="caps vl">Behind the scenes</p><h2 class="se" style="font-size:clamp(52px,7vw,110px);margin-top:20px"><i class="it">@stapfeelings</i></h2></div>
+<a href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" class="caps" style="display:inline-flex;align-items:center;gap:16px;padding-bottom:12px"><span class="ring">→</span>Follow @stapfeelings</a>
+</div>
+</div>
+<div class="railwrap " data-dcon-mousemove="edge_ri" data-dcon-mouseleave="edgeOff"><div id="ri" class="rail pad" data-dcon-scroll="sc_ri"><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 1"><img src="media/ig33.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 2"><img src="media/vwcwb.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 3"><img src="media/ig37.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 4"><img src="media/casa3.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 5"><img src="media/seara.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 6"><img src="media/ig43.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 7"><img src="media/ox.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 8"><img src="media/ig65.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 9"><img src="media/syngenta.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 10"><img src="media/ig29.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 11"><img src="media/c2.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a><a class="igc" href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener" aria-label="Instagram post 12"><img src="media/ig51.jpg" alt="" loading="lazy"><span class="caps">See on Instagram</span></a></div><div class="pad" style="display:flex;align-items:center;gap:24px;margin-top:28px"><div class="track" style="flex:1"><div class="thumb" style="{{th_ri}}"></div><label for="ri-s" style="position:absolute;width:1px;height:1px;overflow:hidden">Browse</label><input id="ri-s" type="range" min="0" max="1000" value="{{pv_ri}}" data-dcon-input="sk_ri"></div><div style="display:flex;gap:8px"><button class="plus" aria-label="Previous" data-dcon-click="pr_ri" style="border:1px solid currentColor;width:44px;height:44px">←</button><button class="plus" aria-label="Next" data-dcon-click="nx_ri" style="border:1px solid currentColor;width:44px;height:44px">→</button></div></div></div>
+</section>
+
+<!-- footer -->
+<footer class="pad" style="margin-top:clamp(100px,11vw,170px);background:var(--navy);color:var(--off);padding-top:clamp(60px,6vw,90px);padding-bottom:28px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px">
+<div><div style="width:92px"><svg role="img" aria-label="Stap Feelings" viewBox="243 317 503 231" style="display:block;width:100%;height:auto"><g fill="#EEE9E1"><path d="M726.77,460.14c-12.53,13.75-31.1,21.58-49.79,20.59-10.45-.55-20.02-4.48-28.39-11.01v71.8l-39.81-.02v-150.03l-.64-6.81c-.23-2.46-1.69-4.83-3.51-6.48-2.49-2.25-5.52-2.28-8.96-2.98l52.88-17.21.15,24.42c3.37-4.98,6.02-9.22,10.19-12.84,5.05-4.45,10.9-7.51,17.39-9.35,5.32-1.48,10.5-2.27,16.03-1.87,14.87,1.08,28.73,7.73,38.23,19.27,8.18,9.94,12.43,22.16,13.22,35.02,1.07,17.48-5.24,34.61-16.99,47.51h0ZM696.04,442.46c4.48-14.95,4.58-32.22-.76-46.97-4.25-11.75-13.04-22.33-26.13-22.02-6.75.16-12.71,3.5-16.16,9.26-2.81,4.68-4.32,9.75-4.32,15.37l-.05,67.09c5.76,9.73,17.22,10.8,26.84,5.52,10.51-5.77,17.17-16.83,20.59-28.23h0Z"></path><path d="M260.17,475.14l-14.86-2.53.07-61.82c4.24,10.94,9.22,20.97,16.27,30.17,4.92,6.95,10.5,12.95,16.84,18.6,12.81,10.92,28.14,18.35,45.22,16.83,11.69-1.04,25.09-5.32,31.03-15.79,4.56-8.04,3.36-17.87-2.56-24.93-2.94-3.5-6.52-6.06-10.67-8.05-4.63-2.22-9.22-4.02-14.2-5.51l-28.55-8.56c-7.42-2.23-14.37-4.84-21.39-8.03-6.02-2.73-11.47-5.99-16.52-10.23-9.69-8.14-15.58-20.21-14.71-32.92.83-12.14,6.88-22.97,16.74-30.08,7.57-5.46,16.09-9.06,25.32-10.73,4.62-.84,9.03-1.59,13.82-1.6l75.15-.08-.04,59.23c-2.91-7.94-6.58-15.16-11.68-21.92-8.51-12.11-19.65-21.88-32.82-28.63-10.73-5.14-22.49-7.5-34.26-5.91-6.82.92-13.18,2.99-18.41,7.31-6.32,5.22-8.61,13.44-6.02,21.19,2.87,8.62,10.55,13.49,18.73,17.03,7.32,3.17,14.65,5.44,22.31,7.76l26.69,8.07c11.8,3.57,25.8,9.67,34.13,18.7,5.88,6.37,9.39,14.17,9.88,22.93.54,9.76-2.21,19.38-7.56,27.58-9.29,14.24-27.03,21.73-43.43,24.44-20.99,3.46-52.96,1.16-74.51-2.51h0Z"></path><path d="M470.98,464.52c-6.41-11.98-2.73-26.58,7.68-34.79,4.36-3.44,8.94-5.92,14.15-7.95,8.35-3.25,16.81-5.35,25.49-7.61l17.91-5.44c5.77-1.75,14.72-7.32,15.53-13.15.8-5.79.67-11.56-.03-17.32-1.35-11.16-8.86-17.39-20.13-17.4-7.66-.01-14.52,3.28-19.09,9.45-4.41,5.95-6.87,14.19-8.85,15.85l-13.25,11.11-6.08-8.78-7.98-11.74,11.35-8.23c12.04-7.44,27.74-10.3,41.89-10.39,14.38-.1,30.97,1.82,42.84,10.15,6.94,4.87,12.09,11.61,15.22,19.52,2.24,5.66,3.97,11.46,4.01,17.69l.27,53.57c.02,3.9,2.55,7.35,6.2,8.03l5.39.17c-4.73,3.18-9.34,6.11-14.5,8.64-8.04,3.93-16.25,6.42-24.96,3.73-4.02-1.24-7.16-3.9-9.23-7.53-2.13-3.75-2.85-7.86-2.88-12.2l-.1-13.39-7.45,11.18c-6.8,8.94-15.58,15.93-26.13,19.99-10.64,4.09-22.38,4.25-32.78-.41-6.02-2.69-11.29-6.77-14.49-12.75h0ZM522.04,458.92c10.9,2.79,21.83-3.34,26.67-12.96,2.34-4.64,3.24-9.6,3.23-14.84l-.03-28.99c-3.12,2.95-5.74,5-9.06,6.88l-10.5,5.52c-6.05,3.32-11.54,7.11-16.2,12.19-5.43,5.92-7.55,14-5.24,21.7,1.6,5.33,5.63,9.07,11.13,10.48h0Z"></path><path d="M447.34,468.19c7.98,1.41,14.82-1.9,21.31-6.27l-.26,1.32c-5.49,4.63-11.11,8.66-17.5,11.91-12.61,6.45-27.1,7.98-39.72,1.18-5.38-2.9-9.44-7.06-12.4-12.4-3.06-6.06-4.71-12.49-4.71-19.48v-79.94c7.48-6.47,14.42-13.32,21.38-20.39l17.48-17.85.02,35.57h36.05l-.03,3.11-36.04.02.11,83.44c0,4.11,1.29,7.97,2.97,11.39,2.26,4.59,6.4,7.52,11.33,8.4h0Z"></path><path d="M250.6,514.17h19.63v2.18h-17.41v11.99h13.89v2.04h-13.89v14.35h-2.22v-30.55Z"></path><path d="M293.02,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M335.43,514.17h19.63v2.18h-17.41v11.99h15.93v2.04h-15.93v11.99h17.36v2.18h-19.58v-30.37Z"></path><path d="M377.84,514.17h2.22v28.52h17.31v2.04h-19.54v-30.55Z"></path><path d="M420.11,514.17h2.13v30.55h-2.13v-30.55Z"></path><path d="M444.98,514.17h2.36l18.56,27.04v-27.04h2.22v30.55h-2.27l-18.7-27.13v27.13h-2.18v-30.55Z"></path><path d="M490.91,529.44c0-8.84,6.67-15.74,15.46-15.74,5.46,0,10.09,2.5,12.87,7.08l-1.85,1.06c-2.45-3.89-6.53-6.16-10.97-6.16-6.9,0-13.33,5.56-13.29,13.75.05,7.92,6.2,13.7,13.19,13.7,4.44,0,8.61-2.08,11.02-5.97v-6.76h-11.9v-1.71h13.94v9.12c-2.69,4.68-7.55,7.36-13.1,7.36-8.61,0-15.42-6.67-15.37-15.74Z"></path><path d="M542.58,536.76h2.08c.09,5.09,5.55,6.53,8.52,6.53,3.66,0,7.87-1.43,8.01-5.83.18-4.21-2.36-6.2-8.75-7.36-6.67-1.11-10.28-3.8-10.28-8.38,0-4.86,4.07-8.01,9.68-8.01s10.46,3.19,10.55,8.52h-2.08c-.09-4.63-4.68-6.62-8.47-6.62s-7.5,1.99-7.5,6.11c-.05,3.33,2.64,5.51,8.29,6.48,7.5,1.3,10.92,4.07,10.74,9.26-.19,5.6-5,7.82-10.32,7.73-5.65-.09-10.32-2.92-10.46-8.43Z"></path></g></svg></div><p class="se" style="font-size:28px;margin-top:22px;line-height:1.05">Shall we build the <i class="it">next</i> chapter?</p></div>
+<div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">House</p><p><a href="https://waze.com/ul?q=Rua%20Prestes%20Jo%C3%A3o%2C%20140%2C%20Jardim%20Luzit%C3%A2nia%2C%20S%C3%A3o%20Paulo&navigate=yes" target="_blank" rel="noopener" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">Rua Prestes João, 140<br>Jardim Luzitânia<br>São Paulo, SP · 04032-010</a></p></div>
+<div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Contact</p><p><a href="mailto:contato@stap.com.br" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">contato@stap.com.br</a><br><a href="tel:+551159080404" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">+55 11 5908-0404</a><br><a href="tel:+5511917279293" style="text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(127,127,127,.45)">+55 11 91727-9293</a></p></div>
+<div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Browse</p><p><a href="Main-EN.html">Home</a><br><a href="Projetos.html">Cases</a><br><a href="Contato.html">Contact</a></p></div>
+<div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Follow</p><p><a href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/agenciastap/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a><br><span style="opacity:.5">WhatsApp · coming soon</span></p></div>
+</div>
+<div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:16px;border-top:1px solid rgba(238,233,225,.2);opacity:.7"><p>© 1992–2026 Stap Feelings</p><p>Feelings that build.</p></div>
+</footer>
+</div>
+</div>
+<script src="assets/dc.js"></script>
+<script>
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { menu: false, open: 0, rr: 52, m: false, b: 0, bk: 0, h: -1, c: 0, rc: 0, rp: 0, ri: 0 };
+this.dir = { rc: 0, rp: 0, ri: 0 };
+}
+componentDidMount() {
+this.pxInit();
+this.kick();
+this._kv = setInterval(() => this.kick(), 2500);
+this._iv = setInterval(() => { this.setState({ b: (this.state.b + 1) % 4, bk: this.state.bk + 1 }); }, 7000);
+this._ic = setInterval(() => { this.setState({ c: (this.state.c + 1) % 4 }); }, 3800);
+this._ie = setInterval(() => { ['rc', 'rp', 'ri'].forEach((id) => { const d = this.dir[id]; if (d) { const el = document.getElementById(id); if (el) el.scrollLeft += d * 9; } }); }, 16);
+}
+kick() { document.querySelectorAll('video[data-loop]').forEach((v) => { if (!v.muted) v.muted = true; v.loop = true; v.playsInline = true; if (v.paused) { const p = v.play(); if (p) p.catch(() => {}); } }); }
+pxInit() { const run = () => { this._pxr = 0; const H = window.innerHeight || 900; document.querySelectorAll('[data-px]').forEach((el) => { const p = el.parentElement; if (!p) return; const r = p.getBoundingClientRect(); if (r.bottom < -300 || r.top > H + 300) return; const f = parseFloat(el.getAttribute('data-px')) || 0.1; const d = -((r.top + r.height / 2) - H / 2) * f; el.style.transform = 'translate3d(0,' + d.toFixed(1) + 'px,0)'; }); }; this._pxs = () => { if (!this._pxr) this._pxr = requestAnimationFrame(run); }; window.addEventListener('scroll', this._pxs, { passive: true }); window.addEventListener('resize', this._pxs); run(); }
+componentWillUnmount() { window.removeEventListener('scroll', this._pxs); window.removeEventListener('resize', this._pxs); clearInterval(this._kv); clearInterval(this._iv); clearInterval(this._ic); clearInterval(this._ie); }
+railVals(v, id) {
+const s = this.state;
+const el = () => document.getElementById(id);
+v['sc_' + id] = (e) => { const t = e.currentTarget; const max = t.scrollWidth - t.clientWidth; this.setState({ [id]: max > 0 ? t.scrollLeft / max : 0 }); };
+v['pv_' + id] = Math.round(s[id] * 1000);
+v['th_' + id] = 'width:22%;left:' + (s[id] * 78).toFixed(2) + '%;';
+v['sk_' + id] = (e) => { const t = el(); if (!t) return; t.scrollLeft = (t.scrollWidth - t.clientWidth) * Number(e.target.value) / 1000; };
+v['pr_' + id] = () => { const t = el(); if (t) t.scrollBy({ left: -t.clientWidth * 0.8, behavior: 'smooth' }); };
+v['nx_' + id] = () => { const t = el(); if (t) t.scrollBy({ left: t.clientWidth * 0.8, behavior: 'smooth' }); };
+v['edge_' + id] = (e) => { const r = e.currentTarget.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width; this.dir[id] = x > 0.88 ? 1 : (x < 0.08 ? -1 : 0); };
+}
+renderVals() {
+const s = this.state;
+const IMG = ["media/vwagro.jpg", "media/grunner.jpg", "media/synconselhos.jpg", "media/seara.jpg", "media/ox.jpg", "media/fmc.jpg", "media/ford-real.jpg", "media/lorenzetti-old.jpg"];
+const v = {
+menuDisplay: s.menu ? 'flex' : 'none',
+openMenu: () => this.setState({ menu: true }),
+closeMenu: () => this.setState({ menu: false }),
+mShow: s.m ? 'display:block;' : 'display:none;',
+mSrc: 'assets/6ae5b44366fc406d6e5beaabf858ebc9.mp4',
+openM: () => { this.setState({ m: true }); setTimeout(() => { const v = document.getElementById('maniv'); if (v) { v.muted = false; v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {}); } }, 60); },
+closeM: () => { const v = document.getElementById('maniv'); if (v) v.pause(); this.setState({ m: false }); },
+rrPos: s.rr,
+rrClip: 'clip-path: inset(0 ' + (100 - s.rr) + '% 0 0);',
+rrLine: 'left: ' + s.rr + '%;',
+rrL: s.rr < 12 ? 'opacity:0;' : '',
+rrSlide: (e) => this.setState({ rr: Number(e.target.value) }),
+edgeOff: () => { this.dir.rc = 0; this.dir.rp = 0; this.dir.ri = 0; },
+bn: '0' + (s.b + 1),
+bp: () => this.setState({ b: (s.b + 3) % 4, bk: s.bk + 1 }),
+bx: () => this.setState({ b: (s.b + 1) % 4, bk: s.bk + 1 }),
+hOff: () => this.setState({ h: -1 }),
+hImg: IMG[Math.max(s.h, 0)],
+hBox: 'opacity:' + (s.h < 0 ? 0 : 1) + ';top:calc(' + (Math.max(s.h, 0) / IMG.length * 100).toFixed(2) + '% - 20px);'
+};
+this.railVals(v, 'rc'); this.railVals(v, 'rp'); this.railVals(v, 'ri');
+for (let i = 0; i < 3; i++) {
+v['o' + i] = () => this.setState({ open: s.open === i ? -1 : i });
+v['b' + i] = s.open === i ? 'grid-template-rows:1fr;' : 'grid-template-rows:0fr;';
+v['r' + i] = s.open === i ? 'transform:rotate(45deg);' : '';
+v['x' + i] = s.open === i ? 'true' : 'false';
+}
+for (let i = 0; i < 4; i++) {
+v['sv' + i] = 'opacity:' + (s.b === i ? 1 : 0) + ';z-index:' + (s.b === i ? 1 : 0) + ';';
+v['sa' + i] = s.b === i ? 'false' : 'true';
+v['g' + i] = () => this.setState({ b: i, bk: s.bk + 1 });
+v['pb' + i] = i < s.b ? 'transform:scaleX(1);' : (i === s.b ? 'animation:prog 7s linear forwards;animation-name:' + (s.bk % 2 ? 'prog' : 'prog2') + ';' : '');
+v['ci' + i] = 'opacity:' + (s.c === i ? 1 : 0) + ';';
+v['cg' + i] = () => this.setState({ c: i });
+v['cb' + i] = 'background:' + (s.c === i ? '#EEE9E1' : 'rgba(238,233,225,.3)') + ';';
+}
+for (let i = 0; i < IMG.length; i++) { v['h' + i] = () => this.setState({ h: i }); }
+return v;
+}
+}
+
+window.__dcMount(document.getElementById("dc-root"), Component);
+</script>
+</body>
+</html>
