@@ -418,6 +418,9 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 @media (max-width:860px){.flow3-cv{height:auto;display:flex;flex-direction:column;gap:22px}.flow3-sv{display:none}.fn3{position:relative;left:auto !important;top:auto !important;transform:translateY(16px);width:auto}.flow3.on .fn3{transform:none}}
 
 /* v3.1 */
+.ess{margin:0}.ess img{display:block;width:clamp(300px,40vw,640px);height:auto}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fess{display:block;width:clamp(150px,13vw,200px);height:auto;margin-top:26px}
 .mbtn{display:inline-flex;align-items:center;gap:14px;padding:15px 24px;border:1px solid rgba(255,255,255,.7);border-radius:0;color:#fff;background:transparent;transition:background .3s,color .3s,border-color .3s}
 .mbtn:hover{background:#fff;color:#0B1C2D;border-color:#fff}
 .mtri{width:0;height:0;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
@@ -506,11 +509,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 <div class="lay pad herogrid" style="display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:clamp(16px,3vw,48px);align-items:center;padding-top:clamp(10px,2vw,30px)">
 <div class="hide-s"><p class="caps" style="opacity:.9">Estratégia<br>Design<br>Arquitetura<br>Cenografia<br>Produção<br>Eventos<br>Experiências</p></div>
 <div>
-<h1 style="font-size:clamp(58px,10.4vw,170px);line-height:.9;font-weight:400">
-<span class="line"><span class="it" style="animation-delay:2.1s;letter-spacing:-.01em">Design é</span></span>
-<span class="line"><span style="animation-delay:2.25s;font-family:'PPN',Arial,sans-serif;text-transform:uppercase;letter-spacing:-.05em;font-size:.86em">a nossa</span></span>
-<span class="line"><span class="it" style="animation-delay:2.4s;letter-spacing:-.01em">essência.</span></span>
-</h1>
+<h1 class="ess fu" style="animation-delay:2.1s"><span class="vh">Design é a nossa essência.</span><img src="assets/v3/design-essencia-light.svg" alt="" aria-hidden="true"></h1>
 <div class="fu" style="animation-delay:2.6s;display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;margin-top:clamp(26px,3vw,40px)">
 <button data-dcon-click="openM" class="caps mbtn" style="pointer-events:auto"><span aria-hidden="true" class="mtri"></span>Assistir ao manifesto</button>
 <a href="#projetos" class="caps" style="display:inline-flex;align-items:center;gap:18px"><span class="ring">→</span>Ver projetos</a>
@@ -662,7 +661,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 <div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Navegue</p><p><a href="index.html">Home</a><br><a href="Projetos.html">Cases</a><br><a href="Contato.html">Contato</a></p></div>
 <div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Siga</p><p><a href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/agenciastap/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a><br><span style="opacity:.5">WhatsApp · em breve</span></p></div>
 </div>
-<div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:16px;border-top:1px solid rgba(11,28,45,.18);opacity:.7"><p>© 1992–2026 Stap Feelings</p><p>Design é a nossa essência.</p></div>
+<div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:16px;border-top:1px solid rgba(11,28,45,.18);opacity:.7"><p>© 1992–2026 Stap Feelings</p><p><img src="assets/v3/design-essencia-navy.svg" alt="Design é a nossa essência." style="display:block;height:64px;width:auto"></p></div>
 </footer>
 </div>
 </div>
