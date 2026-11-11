@@ -14,7 +14,7 @@
 @font-face{font-family:'PPE';src:url(assets/v3/ppe-uli.otf) format('opentype');font-weight:400;font-style:italic;font-display:swap}
 @property --pct{syntax:'<integer>';inherits:false;initial-value:0}
 @property --n{syntax:'<integer>';inherits:false;initial-value:0}
-:root{--navy:#0B1C2D;--deep:#07111F;--azul:#0A62B4;--azul2:#1E9BE0;--claro:#9EC1D9;--off:#EEE9E1;--areia:#D9CBB6;--cinza:#DCD6CC}
+:root{--navy:#0B1C2D;--deep:#07111F;--azul:#0A62B4;--azul2:#1E9BE0;--claro:#9EC1D9;--off:#FFFFFF;--areia:#DCE8F3;--cinza:#E6EDF4}
 body{margin:0}
 a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:2px solid var(--azul2);outline-offset:3px}
@@ -32,7 +32,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .g-ideias{background:#141B48 url(assets/911ee716e1fa5988354db839f2c85204.jpg) center/cover}
 .g-exp{background:#0D3550 url(assets/6423347226a6c70550aad660f78ce118.jpg) center/cover}
 .g-casa{background:#2A3444 url(assets/ce24ff91b8c239900a9c1336327a1720.jpg) center/cover}
-.gtl{background:linear-gradient(100deg,#EEE9E1 0%,#BFD9EC 35%,#5FB2EA 70%,#1E9BE0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.18em 0}
+.gtl{background:linear-gradient(100deg,#FFFFFF 0%,#BFD9EC 35%,#5FB2EA 70%,#1E9BE0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.18em 0}
 .gt{background:linear-gradient(100deg,#0B1C2D 0%,#123E7A 38%,#1E7FD0 72%,#9EC1D9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.18em 0}
 .img{display:block;width:100%;height:100%;object-fit:cover}
 .pill{display:inline-flex;align-items:center;gap:10px;border-radius:40px;padding:12px 20px}
@@ -96,7 +96,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 .track{position:relative;height:2px;background:rgba(11,28,45,.18);border-radius:2px}
 .track .thumb{position:absolute;top:-1px;height:4px;border-radius:4px;background:var(--azul);transition:left .08s linear}
 .track input{position:absolute;left:0;right:0;top:-14px;height:30px;width:100%;margin:0;opacity:0;cursor:grab}
-.dark .track{background:rgba(238,233,225,.2)}.dark .track .thumb{background:var(--off)}
+.dark .track{background:rgba(255,255,255,.2)}.dark .track .thumb{background:var(--off)}
 .case{width:min(76vw,400px)}
 .case .ph{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/5;background:#0B1C2D}
 .case .ph video,.case .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
@@ -106,10 +106,10 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 .case:hover .ov img{transform:none}
 .case:hover .ph>video,.case:hover .ph>img{transform:scale(1.05)}
 .person{width:min(66vw,300px)}
-.pc .pf{position:relative;aspect-ratio:3/4;overflow:hidden;background:#DCD6CC}
+.pc .pf{position:relative;aspect-ratio:3/4;overflow:hidden;background:#EEF3F8}
 .pc .pf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1)}
 .pc:hover .pf img{filter:none;transform:scale(1.03)}
-.pc .bio{position:absolute;left:0;right:0;bottom:0;padding:20px;color:#EEE9E1;background:linear-gradient(0deg,rgba(11,28,45,.95),rgba(11,28,45,.75) 70%,rgba(11,28,45,0));transform:translateY(101%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.pc .bio{position:absolute;left:0;right:0;bottom:0;padding:20px;color:#FFFFFF;background:linear-gradient(0deg,rgba(11,28,45,.95),rgba(11,28,45,.75) 70%,rgba(11,28,45,0));transform:translateY(101%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .pc:hover .bio,.pc:focus-within .bio{transform:none}
 .pc .noph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#0B1C2D}
 .pc .noph .se{font-size:120px;font-style:italic;line-height:1}
@@ -142,7 +142,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 @media (max-width:900px){.logos{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:520px){.logos{grid-template-columns:repeat(3,minmax(0,1fr))}}
 /* render */
-.rr{position:relative;aspect-ratio:16/10;overflow:hidden;background:#111;border:1px solid rgba(238,233,225,.25)}
+.rr{position:relative;aspect-ratio:16/10;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.25)}
 .rr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .rr input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
 /* banner */
@@ -154,7 +154,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 .slide .sh{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,17,31,.85) 0%,rgba(7,17,31,.2) 60%,rgba(7,17,31,0) 100%)}
 .bars{display:flex;gap:8px}
 .bars button{flex:1;height:30px;display:flex;align-items:center;padding:0}
-.bars button span{display:block;width:100%;height:2px;background:rgba(238,233,225,.3);position:relative;overflow:hidden}
+.bars button span{display:block;width:100%;height:2px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
 .bars button span i{position:absolute;inset:0;background:var(--off);transform-origin:left;transform:scaleX(0)}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media (max-width:760px){.slide .vert{height:56%;right:50%;transform:translate(50%,-62%)}}
@@ -177,10 +177,10 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 .c3img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s}
 .c3img .selo-tab{position:absolute;left:-1px;bottom:-1px;background:var(--navy);padding:14px 16px 0 0;z-index:2}
 .c3img .selo-tab img{position:static;display:block;width:clamp(58px,5.4vw,84px);height:auto}
-.c3{position:absolute;z-index:3;line-height:.82;margin:0;white-space:nowrap;mix-blend-mode:difference;color:#EEE9E1}
+.c3{position:absolute;z-index:3;line-height:.82;margin:0;white-space:nowrap;mix-blend-mode:difference;color:#FFFFFF}
 .c3a{left:9%;top:4%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.04em}
 .c3b{right:7%;top:28%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.04em}
-.c3c{left:0;top:50%;font-size:clamp(90px,15vw,250px);letter-spacing:.01em;color:#EEE9E1}
+.c3c{left:0;top:50%;font-size:clamp(90px,15vw,250px);letter-spacing:.01em;color:#FFFFFF}
 .c3d{right:4%;bottom:2%;font-size:clamp(70px,11.6vw,196px);letter-spacing:-.03em}
 .c3d .tk{font-size:1.18em}
 @media (max-width:760px){.casa3{height:auto;display:flex;flex-direction:column;gap:6px}.c3,.c3img{position:relative !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;transform:none !important}.c3img{width:72%;margin:16px auto}.c3b,.c3d{text-align:right}}
@@ -227,10 +227,10 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 @keyframes prog2{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 
-.rr2{background:#EEE9E1;color:#07111F;padding-top:clamp(100px,11vw,170px)}
+.rr2{background:#FFFFFF;color:#07111F;padding-top:clamp(100px,11vw,170px)}
 .rr2 .blue{color:#1F4FA8}
 .rr2-top{flex-wrap:wrap;display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid rgba(7,17,31,.22);padding-top:18px}
-.rr2-hero{position:relative;margin-top:clamp(30px,3vw,48px);overflow:hidden;background:#F4F1EA;min-height:min(88vh,820px)}
+.rr2-hero{position:relative;margin-top:clamp(30px,3vw,48px);overflow:hidden;background:#FFFFFF;min-height:min(88vh,820px)}
 .rr2-col{position:relative;z-index:1;width:50%;min-height:inherit;display:flex;flex-direction:column;justify-content:space-between}
 .rr2-l{padding-top:clamp(40px,5vw,80px);padding-bottom:clamp(24px,3vw,40px)}
 .rr2-sig{font-size:clamp(60px,7.4vw,132px);line-height:.9;letter-spacing:-.025em;margin:0}
@@ -243,7 +243,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 .rr2-real{position:absolute;top:0;bottom:0;left:34%;right:0;margin:0;z-index:2;clip-path:polygon(46% 0,100% 0,100% 100%,0 100%)}
 .rr2-real img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;display:block}
 .rr2-tag{position:absolute;bottom:18px;z-index:4;display:flex;align-items:center;gap:14px}
-.rr2-tag.l{left:clamp(16px,3vw,44px)}.rr2-tag.r{right:clamp(16px,3vw,44px);color:#EEE9E1}
+.rr2-tag.l{left:clamp(16px,3vw,44px)}.rr2-tag.r{right:clamp(16px,3vw,44px);color:#FFFFFF}
 .rr2-tag .ln{width:56px;border-top:1px solid currentColor;opacity:.6}
 @media (max-width:760px){
 .rr2-hero{min-height:0}
@@ -319,8 +319,8 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 <section class="hero">
 <video class="bg" data-px="0.22" src="assets/ef96763ee90f970fee002b96aa724785.mp4" preload="auto" poster="media/hero.jpg" autoplay muted loop playsinline data-loop="1" aria-hidden="true"></video>
 <div class="shade"></div>
-<div class="mani" style="{{mShow}}"><video id="maniv" data-dcattr-src="{{mSrc}}" preload="metadata" poster="assets/0eedfb81d26171dbf9fcd00362140d0a.jpg" controls playsinline></video><button data-dcon-click="closeM" class="caps pill" style="position:absolute;top:22px;right:22px;z-index:2;background:rgba(238,233,225,.92);color:#0B1C2D;padding:12px 20px">Close ✕</button></div>
-<button class="hit" data-dcon-click="openM" aria-label="Watch the manifesto"><span class="cue caps pill" style="background:rgba(238,233,225,.14);backdrop-filter:blur(10px);color:#fff;padding:14px 22px">▶&nbsp;&nbsp;Watch the manifesto</span></button>
+<div class="mani" style="{{mShow}}"><video id="maniv" data-dcattr-src="{{mSrc}}" preload="metadata" poster="assets/0eedfb81d26171dbf9fcd00362140d0a.jpg" controls playsinline></video><button data-dcon-click="closeM" class="caps pill" style="position:absolute;top:22px;right:22px;z-index:2;background:rgba(255,255,255,.92);color:#0B1C2D;padding:12px 20px">Close ✕</button></div>
+<button class="hit" data-dcon-click="openM" aria-label="Watch the manifesto"><span class="cue caps pill" style="background:rgba(255,255,255,.14);backdrop-filter:blur(10px);color:#fff;padding:14px 22px">▶&nbsp;&nbsp;Watch the manifesto</span></button>
 <div class="lay" style="height:88px" aria-hidden="true"></div>
 <div class="lay pad herogrid" style="display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:clamp(16px,3vw,48px);align-items:center;padding-top:clamp(10px,2vw,30px)">
 <div class="hide-s"><p class="caps">01</p><span style="display:block;height:34px;border-left:1px solid var(--off);margin:12px 0 22px"></span><p class="caps" style="opacity:.9">Strategy<br>Design<br>Architecture<br>Scenography<br>Production<br>Events<br>Experiences</p></div>
@@ -516,7 +516,7 @@ a:hover .ring,button:hover .ring{background:var(--off);color:var(--navy);border-
 <div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Browse</p><p><a href="Main-EN.html">Home</a><br><a href="Projetos.html">Cases</a><br><a href="Contato.html">Contact</a></p></div>
 <div class="sm" style="line-height:1.7"><p class="caps" style="opacity:.55;margin-bottom:10px">Follow</p><p><a href="https://www.instagram.com/stapfeelings" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/agenciastap/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a><br><span style="opacity:.5">WhatsApp · coming soon</span></p></div>
 </div>
-<div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:16px;border-top:1px solid rgba(238,233,225,.2);opacity:.7"><p>© 1992–2026 Stap Feelings</p><p>Feelings that build.</p></div>
+<div class="sm" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);opacity:.7"><p>© 1992–2026 Stap Feelings</p><p>Feelings that build.</p></div>
 </footer>
 </div>
 </div>
@@ -589,7 +589,7 @@ v['g' + i] = () => this.setState({ b: i, bk: s.bk + 1 });
 v['pb' + i] = i < s.b ? 'transform:scaleX(1);' : (i === s.b ? 'animation:prog 7s linear forwards;animation-name:' + (s.bk % 2 ? 'prog' : 'prog2') + ';' : '');
 v['ci' + i] = 'opacity:' + (s.c === i ? 1 : 0) + ';';
 v['cg' + i] = () => this.setState({ c: i });
-v['cb' + i] = 'background:' + (s.c === i ? '#EEE9E1' : 'rgba(238,233,225,.3)') + ';';
+v['cb' + i] = 'background:' + (s.c === i ? '#FFFFFF' : 'rgba(255,255,255,.3)') + ';';
 }
 for (let i = 0; i < IMG.length; i++) { v['h' + i] = () => this.setState({ h: i }); }
 return v;
